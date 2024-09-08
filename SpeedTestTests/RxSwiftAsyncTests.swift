@@ -13,7 +13,7 @@ class RxSwiftAwaitTests: XCTestCase {
     func testPublishSubjectPumping() async {
         await measureA {
             var sum = 0
-            let subject = await PublishSubject<Int>()
+            let subject = PublishSubject<Int>()
 
             let subscription = await subject
                 .subscribe(onNext: { x in
@@ -33,7 +33,7 @@ class RxSwiftAwaitTests: XCTestCase {
     func testPublishSubjectPumpingTwoSubscriptions() async {
         await measureA {
             var sum = 0
-            let subject = await PublishSubject<Int>()
+            let subject = PublishSubject<Int>()
 
             let subscription1 = await subject
                 .subscribe(onNext: { x in
@@ -239,7 +239,7 @@ class RxSwiftAwaitTests: XCTestCase {
     func testCombineLatestPumping() async {
         await measureA {
             var sum = 0
-            var last = await Observable.combineLatest(
+            var last = Observable.combineLatest(
                 Observable.just(1), Observable.just(1), Observable.just(1),
                 Observable<Int>.create { observer in
                     for _ in 0 ..< iterations * 10 {
@@ -249,7 +249,7 @@ class RxSwiftAwaitTests: XCTestCase {
                 }) { x, _, _, _ in x }
 
             for _ in 0 ..< 6 {
-                last = await Observable.combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
+                last = Observable.combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
             }
 
             let subscription = await last
@@ -267,16 +267,16 @@ class RxSwiftAwaitTests: XCTestCase {
         await measureA {
             var sum = 0
             for _ in 0 ..< iterations {
-                var last = await Observable.combineLatest(
+                var last = Observable.combineLatest(
                     Observable<Int>.create { observer in
                         for _ in 0 ..< 1 {
                             await observer.on(.next(1))
                         }
                         return Disposables.create()
-                    }, await Observable.just(1), await Observable.just(1), await Observable.just(1)) { x, _, _, _ in x }
+                    }, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
 
                 for _ in 0 ..< 6 {
-                    last = await Observable.combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
+                    last = Observable.combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
                 }
 
                 let subscription = await last
@@ -294,15 +294,15 @@ class RxSwiftAwaitTests: XCTestCase {
 
 private extension XCTestCase {
     func measureA(_ work: @escaping () async -> Void) async {
-        await work()
-//        measure { [self] in
-//            let expectation = expectation(description: "")
-//            Task {
-//                await work()
-//                expectation.fulfill()
-//            }
-//            wait(for: [expectation], timeout: 3)
-//        }
+//        await work()
+        measure { [self] in
+            let expectation = expectation(description: "")
+            Task {
+                await work()
+                expectation.fulfill()
+            }
+            wait(for: [expectation], timeout: 3)
+        }
     }
 }
 

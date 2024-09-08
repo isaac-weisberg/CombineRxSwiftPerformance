@@ -11,8 +11,8 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
-**Test** | **RxSwift (ms)** | **Combine (ms)** | **RxSwiftUnfair (ms)**
---- | --- | --- | ---
+**Test** | **RxSwift (ms)** | **Combine (ms)** | **RxSwiftUnfair (ms)** | **RxSwiftAwait (ms)**
+--- | --- | --- | --- | --- 
 **PublishSubjectPumping** | 157 | 51 | 142
 **PublishSubjectPumpingTwoSubscriptions** | 251 | 212 | 232
 **PublishSubjectCreating** | 90 | 84 | 102
@@ -24,6 +24,11 @@ As a summary Combine was faster in every test and on average 41% more performant
 **FlatMapLatestCreating** | 71 | 52 | 93
 **CombineLatestPumping** | 137 | 157 | 173
 **CombineLatestCreating** | 166 | 192 | 221
+
+### Testing Details
+**Machine**: MacBook Pro 2023, Apple M3 Max, 48 GB
+**IDE**: Xcode 16.0 beta 6 (11M382q)
+**Testing Device**: iPhone 12 mini Simulator
 
 ## old result
 
