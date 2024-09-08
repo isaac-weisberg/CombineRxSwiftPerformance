@@ -1,16 +1,23 @@
 PODS:
   - RxSwift (5.0.0)
+  - RxSwiftAwait (0.0.1)
 
 DEPENDENCIES:
   - RxSwift (~> 5.0)
+  - RxSwiftAwait (from `../RxSwift`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - RxSwift
 
+EXTERNAL SOURCES:
+  RxSwiftAwait:
+    :path: "../RxSwift"
+
 SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  RxSwiftAwait: 874ff2f6d39494b22cba260a0bdde11700c895fc
 
-PODFILE CHECKSUM: b296398697559b9c7dc90f3600c5a11d02a4cd29
+PODFILE CHECKSUM: 5696bc83f12bf511beecb80c133939b821807100
 
 COCOAPODS: 1.15.2

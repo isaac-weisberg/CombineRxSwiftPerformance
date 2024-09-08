@@ -6,90 +6,87 @@
 //  Copyright © 2019 QuickBird Studios. All rights reserved.
 //
 
-import RxSwift
+import RxSwiftAwait
 import XCTest
 
-let iterations = 10000
-
-class RxSwiftTests: XCTestCase {
-
-    func testPublishSubjectPumping() {
-        measure {
+class RxSwiftAwaitTests: XCTestCase {
+    func testPublishSubjectPumping() async {
+        await measureA {
             var sum = 0
-            let subject = PublishSubject<Int>()
+            let subject = await PublishSubject<Int>()
 
-            let subscription = subject
+            let subscription = await subject
                 .subscribe(onNext: { x in
                     sum += x
                 })
 
             for _ in 0 ..< iterations * 100 {
-                subject.on(.next(1))
+                await subject.on(.next(1))
             }
 
-            subscription.dispose()
+            await subscription.dispose()
 
             XCTAssertEqual(sum, iterations * 100)
         }
     }
 
-    func testPublishSubjectPumpingTwoSubscriptions() {
-        measure {
+    func testPublishSubjectPumpingTwoSubscriptions() async {
+        await measureA {
             var sum = 0
-            let subject = PublishSubject<Int>()
+            let subject = await PublishSubject<Int>()
 
-            let subscription1 = subject
+            let subscription1 = await subject
                 .subscribe(onNext: { x in
                     sum += x
                 })
 
-            let subscription2 = subject
+            let subscription2 = await subject
                 .subscribe(onNext: { x in
                     sum += x
                 })
 
             for _ in 0 ..< iterations * 100 {
-                subject.on(.next(1))
+                await subject.on(.next(1))
             }
 
-            subscription1.dispose()
-            subscription2.dispose()
+            await subscription1.dispose()
+            await subscription2.dispose()
 
             XCTAssertEqual(sum, iterations * 100 * 2)
         }
     }
 
-    func testPublishSubjectCreating() {
-        measure {
+    func testPublishSubjectCreating() async {
+        await measureA {
             var sum = 0
 
             for _ in 0 ..< iterations * 10 {
                 let subject = PublishSubject<Int>()
 
-                let subscription = subject
+                let subscription = await subject
                     .subscribe(onNext: { x in
                         sum += x
                     })
 
                 for _ in 0 ..< 1 {
-                    subject.on(.next(1))
+                    await subject.on(.next(1))
                 }
 
-                subscription.dispose()
+                await subscription.dispose()
             }
 
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
-    func testMapFilterPumping() {
-        measure {
+    func testMapFilterPumping() async {
+        await measureA {
             var sum = 0
 
-            let subscription = Observable<Int>
+            let subscription = await Observable<Int>
                 .create { observer in
                     for _ in 0 ..< iterations * 10 {
-                        observer.on(.next(1))
+                        await observer.on(.next(1))
                     }
                     return Disposables.create()
                 }
@@ -103,21 +100,21 @@ class RxSwiftTests: XCTestCase {
                     sum += x
                 })
 
-            subscription.dispose()
+            await subscription.dispose()
 
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
-    func testMapFilterCreating() {
-        measure {
+    func testMapFilterCreating() async {
+        await measureA {
             var sum = 0
 
             for _ in 0 ..< iterations {
-                let subscription = Observable<Int>
+                let subscription = await Observable<Int>
                     .create { observer in
                         for _ in 0 ..< 1 {
-                            observer.on(.next(1))
+                            await observer.on(.next(1))
                         }
                         return Disposables.create()
                     }
@@ -131,20 +128,20 @@ class RxSwiftTests: XCTestCase {
                         sum += x
                     })
 
-                subscription.dispose()
+                await subscription.dispose()
             }
 
             XCTAssertEqual(sum, iterations)
         }
     }
 
-    func testFlatMapsPumping() {
-        measure {
+    func testFlatMapsPumping() async {
+        await measureA {
             var sum = 0
-            let subscription = Observable<Int>
+            let subscription = await Observable<Int>
                 .create { observer in
                     for _ in 0 ..< iterations * 10 {
-                        observer.on(.next(1))
+                        await observer.on(.next(1))
                     }
                     return Disposables.create()
                 }
@@ -157,19 +154,19 @@ class RxSwiftTests: XCTestCase {
                     sum += x
                 })
 
-            subscription.dispose()
+            await subscription.dispose()
 
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
-    func testFlatMapsCreating() {
-        measure {
+    func testFlatMapsCreating() async {
+        await measureA {
             var sum = 0
             for _ in 0 ..< iterations {
-                let subscription = Observable<Int>.create { observer in
+                let subscription = await Observable<Int>.create { observer in
                     for _ in 0 ..< 1 {
-                        observer.on(.next(1))
+                        await observer.on(.next(1))
                     }
                     return Disposables.create()
                 }
@@ -182,19 +179,19 @@ class RxSwiftTests: XCTestCase {
                     sum += x
                 })
 
-                subscription.dispose()
+                await subscription.dispose()
             }
 
             XCTAssertEqual(sum, iterations)
         }
     }
 
-    func testFlatMapLatestPumping() {
-        measure {
+    func testFlatMapLatestPumping() async {
+        await measureA {
             var sum = 0
-            let subscription = Observable<Int>.create { observer in
+            let subscription = await Observable<Int>.create { observer in
                 for _ in 0 ..< iterations * 10 {
-                    observer.on(.next(1))
+                    await observer.on(.next(1))
                 }
                 return Disposables.create()
             }
@@ -207,19 +204,19 @@ class RxSwiftTests: XCTestCase {
                 sum += x
             })
 
-            subscription.dispose()
+            await subscription.dispose()
 
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
-    func testFlatMapLatestCreating() {
-        measure {
+    func testFlatMapLatestCreating() async {
+        await measureA {
             var sum = 0
             for _ in 0 ..< iterations {
-                let subscription = Observable<Int>.create { observer in
+                let subscription = await Observable<Int>.create { observer in
                     for _ in 0 ..< 1 {
-                        observer.on(.next(1))
+                        await observer.on(.next(1))
                     }
                     return Disposables.create()
                 }
@@ -232,71 +229,97 @@ class RxSwiftTests: XCTestCase {
                     sum += x
                 })
 
-                subscription.dispose()
+                await subscription.dispose()
             }
 
             XCTAssertEqual(sum, iterations)
         }
     }
 
-    func testCombineLatestPumping() {
-        measure {
+    func testCombineLatestPumping() async {
+        await measureA {
             var sum = 0
-            var last = Observable.combineLatest(
+            var last = await Observable.combineLatest(
                 Observable.just(1), Observable.just(1), Observable.just(1),
                 Observable<Int>.create { observer in
                     for _ in 0 ..< iterations * 10 {
-                        observer.on(.next(1))
+                        await observer.on(.next(1))
                     }
                     return Disposables.create()
-                }
-            ) { x, _, _, _ in x }
+                }) { x, _, _, _ in x }
 
             for _ in 0 ..< 6 {
-                last = Observable
-                    .combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
+                last = await Observable.combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
             }
 
-            let subscription = last
+            let subscription = await last
                 .subscribe(onNext: { x in
                     sum += x
                 })
 
-            subscription.dispose()
+            await subscription.dispose()
 
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
-    func testCombineLatestCreating() {
-        measure {
+    func testCombineLatestCreating() async {
+        await measureA {
             var sum = 0
             for _ in 0 ..< iterations {
-                var last = Observable.combineLatest(
+                var last = await Observable.combineLatest(
                     Observable<Int>.create { observer in
                         for _ in 0 ..< 1 {
-                            observer.on(.next(1))
+                            await observer.on(.next(1))
                         }
                         return Disposables.create()
-                    }, Observable.just(1), Observable.just(1), Observable.just(1)
-                ) { x, _, _, _ in x }
+                    }, await Observable.just(1), await Observable.just(1), await Observable.just(1)) { x, _, _, _ in x }
 
                 for _ in 0 ..< 6 {
-                    last = Observable
-                        .combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in
-                            x
-                        }
+                    last = await Observable.combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
                 }
 
-                let subscription = last
+                let subscription = await last
                     .subscribe(onNext: { x in
                         sum += x
                     })
 
-                subscription.dispose()
+                await subscription.dispose()
             }
 
             XCTAssertEqual(sum, iterations)
         }
     }
 }
+
+private extension XCTestCase {
+    func measureA(_ work: @escaping () async -> Void) async {
+        await work()
+//        measure { [self] in
+//            let expectation = expectation(description: "")
+//            Task {
+//                await work()
+//                expectation.fulfill()
+//            }
+//            wait(for: [expectation], timeout: 3)
+//        }
+    }
+}
+
+//
+// class UnsafeTask<T> {
+//    let semaphore = DispatchSemaphore(value: 0)
+//    private var result: T?
+//    init(block: @escaping () async -> T) {
+//        Task {
+//            result = await block()
+//            semaphore.signal()
+//        }
+//    }
+//
+//    func get() -> T {
+//        if let result = result { return result }
+//        semaphore.wait()
+//        return result!
+//    }
+// }
