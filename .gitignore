@@ -1,0 +1,7 @@
+vendor/
+*.xcuserdata/
+Pods/
+xcuserdata/
+DerivedData/
+build/
+.DS_Store

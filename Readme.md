@@ -11,6 +11,22 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
+**Test** | **RxSwift (ms)** | **Combine (ms)** | **RxSwiftUnfair (ms)**
+--- | --- | --- | ---
+**PublishSubjectPumping** | 157 | 51 | 142
+**PublishSubjectPumpingTwoSubscriptions** | 251 | 212 | 232
+**PublishSubjectCreating** | 90 | 84 | 102
+**MapFilterPumping** | 64 | 6 | 
+**MapFilterCreating** | 53 | 39 | 
+**FlatMapsPumping** | 231 | 171 | 231 (229, 155, 228)
+**FlatMapsCreating** | 68 | 51 | 81 
+**FlatMapLatestPumping** | 247 | 172 | 315
+**FlatMapLatestCreating** | 71 | 52 | 93
+**CombineLatestPumping** | 137 | 157 | 173
+**CombineLatestCreating** | 166 | 192 | 221
+
+## old result
+
 **Test** | **RxSwift (ms)** | **Combine (ms)** | **Factor**
 --- | --- | --- | ---
 **PublishSubjectPumping** | 227 | 135 | 168%
