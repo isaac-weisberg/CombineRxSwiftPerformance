@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30872D7804A43F1B4FED5D2F /* Pods_SpeedTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C864EB248FEB11DA226E539 /* Pods_SpeedTest.framework */; };
+		609C8569E00C340818F4CF52 /* Pods_SpeedTestCmd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D365BDE15C511B407D5C2D53 /* Pods_SpeedTestCmd.framework */; };
+		A47B9A0F2C8F6A5000F5EAD4 /* RxSwiftAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A0C2C8F6A5000F5EAD4 /* RxSwiftAsyncTests.swift */; };
+		A47B9A102C8F6A5000F5EAD4 /* RxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A0D2C8F6A5000F5EAD4 /* RxSwiftTests.swift */; };
+		A47B9A112C8F6A5000F5EAD4 /* CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A0E2C8F6A5000F5EAD4 /* CombineTests.swift */; };
+		A47B9A202C8F6ED600F5EAD4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A1E2C8F6ED600F5EAD4 /* main.swift */; };
+		A47B9A242C8F6F0700F5EAD4 /* CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A232C8F6F0700F5EAD4 /* CombineTests.swift */; };
+		A47B9A252C8F6F0700F5EAD4 /* RxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A222C8F6F0700F5EAD4 /* RxSwiftTests.swift */; };
+		A47B9A262C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */; };
+		A47B9A282C8F703800F5EAD4 /* Publisher+Anonymous.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A272C8F703800F5EAD4 /* Publisher+Anonymous.swift */; };
+		A47B9A2B2C8F71AA00F5EAD4 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */; };
+		A47B9A2C2C8F71AA00F5EAD4 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A47B9A2D2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */; };
+		A47B9A2E2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4F9F8ED2C45777400E3DABA /* RxSwiftAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9F8EC2C45777400E3DABA /* RxSwiftAsyncTests.swift */; };
 		B919F6FA2FD596D7C43C33D1 /* Pods_SpeedTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B8730AB70E2662A0E106CC /* Pods_SpeedTestTests.framework */; };
 		F64D61F622F4334A00315E19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64D61F522F4334A00315E19 /* AppDelegate.swift */; };
@@ -31,11 +45,52 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A47B9A142C8F6DD600F5EAD4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		A47B9A2F2C8F71AA00F5EAD4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A47B9A2C2C8F71AA00F5EAD4 /* RxSwift.framework in Embed Frameworks */,
+				A47B9A2E2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01C790B0CCF8F5785B4C5466 /* Pods-SpeedTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTestTests.release.xcconfig"; path = "Target Support Files/Pods-SpeedTestTests/Pods-SpeedTestTests.release.xcconfig"; sourceTree = "<group>"; };
+		1A5C45926EA69411649DA7B5 /* Pods-SpeedTestCmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTestCmd.debug.xcconfig"; path = "Target Support Files/Pods-SpeedTestCmd/Pods-SpeedTestCmd.debug.xcconfig"; sourceTree = "<group>"; };
 		71D841E05F10EEEF73ACE790 /* Pods-SpeedTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTestTests.debug.xcconfig"; path = "Target Support Files/Pods-SpeedTestTests/Pods-SpeedTestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9C864EB248FEB11DA226E539 /* Pods_SpeedTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47B9A0C2C8F6A5000F5EAD4 /* RxSwiftAsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftAsyncTests.swift; sourceTree = "<group>"; };
+		A47B9A0D2C8F6A5000F5EAD4 /* RxSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftTests.swift; sourceTree = "<group>"; };
+		A47B9A0E2C8F6A5000F5EAD4 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
+		A47B9A162C8F6DD600F5EAD4 /* SpeedTestCmd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SpeedTestCmd; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47B9A1E2C8F6ED600F5EAD4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftAsyncTests.swift; sourceTree = "<group>"; };
+		A47B9A222C8F6F0700F5EAD4 /* RxSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftTests.swift; sourceTree = "<group>"; };
+		A47B9A232C8F6F0700F5EAD4 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
+		A47B9A272C8F703800F5EAD4 /* Publisher+Anonymous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Anonymous.swift"; sourceTree = "<group>"; };
+		A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwiftAwait.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4F9F8EC2C45777400E3DABA /* RxSwiftAsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwiftAsyncTests.swift; sourceTree = "<group>"; };
+		B18A79BEBBDC0481F94DDC5E /* Pods-SpeedTestCmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTestCmd.release.xcconfig"; path = "Target Support Files/Pods-SpeedTestCmd/Pods-SpeedTestCmd.release.xcconfig"; sourceTree = "<group>"; };
 		C3B8730AB70E2662A0E106CC /* Pods_SpeedTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D365BDE15C511B407D5C2D53 /* Pods_SpeedTestCmd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedTestCmd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4F97EBBA1143958C758591E /* Pods-SpeedTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTest.debug.xcconfig"; path = "Target Support Files/Pods-SpeedTest/Pods-SpeedTest.debug.xcconfig"; sourceTree = "<group>"; };
+		EEA8B233517F9F842FFEE2A4 /* Pods-SpeedTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedTest.release.xcconfig"; path = "Target Support Files/Pods-SpeedTest/Pods-SpeedTest.release.xcconfig"; sourceTree = "<group>"; };
 		F64D61F222F4334A00315E19 /* SpeedTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F64D61F522F4334A00315E19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F64D61F722F4334A00315E19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,10 +107,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A47B9A132C8F6DD600F5EAD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A47B9A2B2C8F71AA00F5EAD4 /* RxSwift.framework in Frameworks */,
+				609C8569E00C340818F4CF52 /* Pods_SpeedTestCmd.framework in Frameworks */,
+				A47B9A2D2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F64D61EF22F4334A00315E19 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30872D7804A43F1B4FED5D2F /* Pods_SpeedTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +141,10 @@
 			children = (
 				71D841E05F10EEEF73ACE790 /* Pods-SpeedTestTests.debug.xcconfig */,
 				01C790B0CCF8F5785B4C5466 /* Pods-SpeedTestTests.release.xcconfig */,
+				E4F97EBBA1143958C758591E /* Pods-SpeedTest.debug.xcconfig */,
+				EEA8B233517F9F842FFEE2A4 /* Pods-SpeedTest.release.xcconfig */,
+				1A5C45926EA69411649DA7B5 /* Pods-SpeedTestCmd.debug.xcconfig */,
+				B18A79BEBBDC0481F94DDC5E /* Pods-SpeedTestCmd.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -82,14 +152,31 @@
 		5D60299AF8DF51DA35EAFA87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */,
+				A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */,
 				C3B8730AB70E2662A0E106CC /* Pods_SpeedTestTests.framework */,
+				9C864EB248FEB11DA226E539 /* Pods_SpeedTest.framework */,
+				D365BDE15C511B407D5C2D53 /* Pods_SpeedTestCmd.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A47B9A1F2C8F6ED600F5EAD4 /* SpeedTestCmd */ = {
+			isa = PBXGroup;
+			children = (
+				A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */,
+				A47B9A272C8F703800F5EAD4 /* Publisher+Anonymous.swift */,
+				A47B9A222C8F6F0700F5EAD4 /* RxSwiftTests.swift */,
+				A47B9A232C8F6F0700F5EAD4 /* CombineTests.swift */,
+				A47B9A1E2C8F6ED600F5EAD4 /* main.swift */,
+			);
+			path = SpeedTestCmd;
 			sourceTree = "<group>";
 		};
 		F64D61E922F4334A00315E19 = {
 			isa = PBXGroup;
 			children = (
+				A47B9A1F2C8F6ED600F5EAD4 /* SpeedTestCmd */,
 				F64D61F422F4334A00315E19 /* SpeedTest */,
 				F64D620B22F4334B00315E19 /* SpeedTestTests */,
 				F64D61F322F4334A00315E19 /* Products */,
@@ -103,6 +190,7 @@
 			children = (
 				F64D61F222F4334A00315E19 /* SpeedTest.app */,
 				F64D620822F4334B00315E19 /* SpeedTestTests.xctest */,
+				A47B9A162C8F6DD600F5EAD4 /* SpeedTestCmd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +202,9 @@
 				F64D61F722F4334A00315E19 /* SceneDelegate.swift */,
 				F66BAD6A22F8135900AB3065 /* Publisher+Anonymous.swift */,
 				F64D61F922F4334A00315E19 /* ViewController.swift */,
+				A47B9A0C2C8F6A5000F5EAD4 /* RxSwiftAsyncTests.swift */,
+				A47B9A0D2C8F6A5000F5EAD4 /* RxSwiftTests.swift */,
+				A47B9A0E2C8F6A5000F5EAD4 /* CombineTests.swift */,
 				F64D61FB22F4334A00315E19 /* Main.storyboard */,
 				F64D61FE22F4334B00315E19 /* Assets.xcassets */,
 				F64D620022F4334B00315E19 /* LaunchScreen.storyboard */,
@@ -136,13 +227,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A47B9A152C8F6DD600F5EAD4 /* SpeedTestCmd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A47B9A1C2C8F6DD600F5EAD4 /* Build configuration list for PBXNativeTarget "SpeedTestCmd" */;
+			buildPhases = (
+				15F018DD487782625D70F7B4 /* [CP] Check Pods Manifest.lock */,
+				A47B9A122C8F6DD600F5EAD4 /* Sources */,
+				A47B9A132C8F6DD600F5EAD4 /* Frameworks */,
+				A47B9A142C8F6DD600F5EAD4 /* CopyFiles */,
+				A47B9A2F2C8F71AA00F5EAD4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpeedTestCmd;
+			productName = SpeedTestCmd;
+			productReference = A47B9A162C8F6DD600F5EAD4 /* SpeedTestCmd */;
+			productType = "com.apple.product-type.tool";
+		};
 		F64D61F122F4334A00315E19 /* SpeedTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F64D621122F4334B00315E19 /* Build configuration list for PBXNativeTarget "SpeedTest" */;
 			buildPhases = (
+				C79551431D5EF648F3DFD28F /* [CP] Check Pods Manifest.lock */,
 				F64D61EE22F4334A00315E19 /* Sources */,
 				F64D61EF22F4334A00315E19 /* Frameworks */,
 				F64D61F022F4334A00315E19 /* Resources */,
+				543C65739B5A326953E7D071 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,10 +291,13 @@
 		F64D61EA22F4334A00315E19 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "QuickBird Studios";
 				TargetAttributes = {
+					A47B9A152C8F6DD600F5EAD4 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					F64D61F122F4334A00315E19 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -207,6 +322,7 @@
 			targets = (
 				F64D61F122F4334A00315E19 /* SpeedTest */,
 				F64D620722F4334B00315E19 /* SpeedTestTests */,
+				A47B9A152C8F6DD600F5EAD4 /* SpeedTestCmd */,
 			);
 		};
 /* End PBXProject section */
@@ -232,6 +348,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		15F018DD487782625D70F7B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpeedTestCmd-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		543C65739B5A326953E7D071 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpeedTest/Pods-SpeedTest-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpeedTest/Pods-SpeedTest-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpeedTest/Pods-SpeedTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6B42AB86788B34047E0B2846 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,9 +426,43 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpeedTestTests/Pods-SpeedTestTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C79551431D5EF648F3DFD28F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpeedTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A47B9A122C8F6DD600F5EAD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A47B9A242C8F6F0700F5EAD4 /* CombineTests.swift in Sources */,
+				A47B9A252C8F6F0700F5EAD4 /* RxSwiftTests.swift in Sources */,
+				A47B9A262C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift in Sources */,
+				A47B9A202C8F6ED600F5EAD4 /* main.swift in Sources */,
+				A47B9A282C8F703800F5EAD4 /* Publisher+Anonymous.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F64D61EE22F4334A00315E19 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,6 +470,9 @@
 				F64D61FA22F4334A00315E19 /* ViewController.swift in Sources */,
 				F64D61F622F4334A00315E19 /* AppDelegate.swift in Sources */,
 				F66BAD6B22F8135900AB3065 /* Publisher+Anonymous.swift in Sources */,
+				A47B9A0F2C8F6A5000F5EAD4 /* RxSwiftAsyncTests.swift in Sources */,
+				A47B9A102C8F6A5000F5EAD4 /* RxSwiftTests.swift in Sources */,
+				A47B9A112C8F6A5000F5EAD4 /* CombineTests.swift in Sources */,
 				F64D61F822F4334A00315E19 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +518,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A47B9A1A2C8F6DD600F5EAD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A5C45926EA69411649DA7B5 /* Pods-SpeedTestCmd.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A47B9A1B2C8F6DD600F5EAD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B18A79BEBBDC0481F94DDC5E /* Pods-SpeedTestCmd.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		F64D620F22F4334B00315E19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -442,6 +671,7 @@
 		};
 		F64D621222F4334B00315E19 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4F97EBBA1143958C758591E /* Pods-SpeedTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -460,6 +690,7 @@
 		};
 		F64D621322F4334B00315E19 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEA8B233517F9F842FFEE2A4 /* Pods-SpeedTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -480,7 +711,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71D841E05F10EEEF73ACE790 /* Pods-SpeedTestTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QZRPL4EC5L;
@@ -502,7 +732,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01C790B0CCF8F5785B4C5466 /* Pods-SpeedTestTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QZRPL4EC5L;
@@ -523,6 +752,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A47B9A1C2C8F6DD600F5EAD4 /* Build configuration list for PBXNativeTarget "SpeedTestCmd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A47B9A1A2C8F6DD600F5EAD4 /* Debug */,
+				A47B9A1B2C8F6DD600F5EAD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F64D61ED22F4334A00315E19 /* Build configuration list for PBXProject "SpeedTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

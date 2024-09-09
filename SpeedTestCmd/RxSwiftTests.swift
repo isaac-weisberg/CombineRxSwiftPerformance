@@ -7,11 +7,10 @@
 //
 
 import RxSwift
-import XCTest
 
 let iterations = 10000
 
-class RxSwiftTests: XCTestCase {
+class RxSwiftTests {
     func measureS(_ function: String = #function, _ work: () -> Void) {
         Tally.instance.measureS(.vanilla, function, work)
     }
@@ -32,7 +31,7 @@ class RxSwiftTests: XCTestCase {
 
             subscription.dispose()
 
-            XCTAssertEqual(sum, iterations * 100)
+            assertEqual(sum, iterations * 100)
         }
     }
 
@@ -58,7 +57,7 @@ class RxSwiftTests: XCTestCase {
             subscription1.dispose()
             subscription2.dispose()
 
-            XCTAssertEqual(sum, iterations * 100 * 2)
+            assertEqual(sum, iterations * 100 * 2)
         }
     }
 
@@ -81,7 +80,7 @@ class RxSwiftTests: XCTestCase {
                 subscription.dispose()
             }
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -108,7 +107,7 @@ class RxSwiftTests: XCTestCase {
 
             subscription.dispose()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -137,7 +136,7 @@ class RxSwiftTests: XCTestCase {
                 subscription.dispose()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -162,7 +161,7 @@ class RxSwiftTests: XCTestCase {
 
             subscription.dispose()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -188,7 +187,7 @@ class RxSwiftTests: XCTestCase {
                 subscription.dispose()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -212,7 +211,7 @@ class RxSwiftTests: XCTestCase {
 
             subscription.dispose()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -238,7 +237,7 @@ class RxSwiftTests: XCTestCase {
                 subscription.dispose()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -267,7 +266,7 @@ class RxSwiftTests: XCTestCase {
 
             subscription.dispose()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -299,7 +298,7 @@ class RxSwiftTests: XCTestCase {
                 subscription.dispose()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 }
