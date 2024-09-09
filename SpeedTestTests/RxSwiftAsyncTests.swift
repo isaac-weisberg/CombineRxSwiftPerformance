@@ -10,6 +10,9 @@ import RxSwiftAwait
 import XCTest
 
 class RxSwiftAwaitTests: XCTestCase {
+    func measureA(_ function: String = #function, _ work: () async -> Void) async{
+        await Tally.instance.measureA(.async, function, work)
+    }
     func testPublishSubjectPumping() async {
         await measureA {
             var sum = 0
@@ -246,10 +249,12 @@ class RxSwiftAwaitTests: XCTestCase {
                         await observer.on(.next(1))
                     }
                     return Disposables.create()
-                }) { x, _, _, _ in x }
+                }
+            ) { x, _, _, _ in x }
 
             for _ in 0 ..< 6 {
-                last = Observable.combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
+                last = Observable
+                    .combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
             }
 
             let subscription = await last
@@ -273,10 +278,14 @@ class RxSwiftAwaitTests: XCTestCase {
                             await observer.on(.next(1))
                         }
                         return Disposables.create()
-                    }, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
+                    }, Observable.just(1), Observable.just(1), Observable.just(1)
+                ) { x, _, _, _ in x }
 
                 for _ in 0 ..< 6 {
-                    last = Observable.combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in x }
+                    last = Observable
+                        .combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in
+                            x
+                        }
                 }
 
                 let subscription = await last
@@ -292,16 +301,62 @@ class RxSwiftAwaitTests: XCTestCase {
     }
 }
 
-private extension XCTestCase {
-    func measureA(_ work: @escaping () async -> Void) async {
-//        await work()
-        measure { [self] in
-            let expectation = expectation(description: "")
-            Task {
-                await work()
-                expectation.fulfill()
-            }
-            wait(for: [expectation], timeout: 3)
+enum Source {
+    case async
+    case combine
+    case vanilla
+}
+
+final class Tally {
+    static let instance = Tally()
+
+    var vanillaResults: [String: Int] = [:]
+    var combineResults: [String: Int] = [:]
+    var asyncResults: [String: Int] = [:]
+
+    func measureS(_ source: Source, _ label: String = #function, _ work: () -> Void) {
+        let start = Date()
+
+        work()
+        let end = Date()
+
+        let diff = end.timeIntervalSinceReferenceDate - start.timeIntervalSinceReferenceDate
+
+        let ms = Int(diff * 1000)
+
+        writeResults(source, label, ms)
+    }
+
+    func measureA(_ source: Source, _ label: String = #function, _ work: () async -> Void) async {
+        let start = Date()
+
+        await work()
+        let end = Date()
+
+        let diff = end.timeIntervalSinceReferenceDate - start.timeIntervalSinceReferenceDate
+
+        let ms = Int(diff * 1000)
+
+        writeResults(source, label, ms)
+    }
+
+    func writeResults(_ source: Source, _ label: String, _ ms: Int) {
+        switch source {
+
+        case .async:
+            asyncResults[label] = ms
+        case .combine:
+            combineResults[label] = ms
+        case .vanilla:
+            vanillaResults[label] = ms
+        }
+
+        let allGood = [asyncResults.keys, combineResults.keys, vanillaResults.keys].allSatisfy { keys in
+            keys.contains(where: { $0 == label })
+        }
+        
+        if allGood {
+            print("ASDF \(label) rxswift: \(vanillaResults[label]!) ms, combine: \(combineResults[label]!) ms, rxswiftawait: \(asyncResults[label]!) ms")
         }
     }
 }

@@ -6,13 +6,16 @@
 //  Copyright © 2019 QuickBird Studios. All rights reserved.
 //
 
-import XCTest
 import Combine
+import XCTest
 
 class CombineTests: XCTestCase {
-    
+    func measureS(_ function: String = #function, _ work: () -> Void) {
+        Tally.instance.measureS(.combine, function, work)
+    }
+
     func testPublishSubjectPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subject = PassthroughSubject<Int, Never>()
 
@@ -24,15 +27,15 @@ class CombineTests: XCTestCase {
             for _ in 0 ..< iterations * 100 {
                 subject.send(1)
             }
-            
+
             subscription.cancel()
-            
+
             XCTAssertEqual(sum, iterations * 100)
         }
     }
 
     func testPublishSubjectPumpingTwoSubscriptions() {
-        measure {
+        measureS {
             var sum = 0
             let subject = PassthroughSubject<Int, Never>()
 
@@ -58,7 +61,7 @@ class CombineTests: XCTestCase {
     }
 
     func testPublishSubjectCreating() {
-        measure {
+        measureS {
             var sum = 0
 
             for _ in 0 ..< iterations * 10 {
@@ -81,11 +84,37 @@ class CombineTests: XCTestCase {
     }
 
     func testMapFilterPumping() {
-        measure {
+        measureS {
             var sum = 0
-            
+
             let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                    for _ in 0 ..< iterations * 10 {
+                for _ in 0 ..< iterations * 10 {
+                    _ = subscriber.receive(1)
+                }
+            }
+            .map { $0 }.filter { _ in true }
+            .map { $0 }.filter { _ in true }
+            .map { $0 }.filter { _ in true }
+            .map { $0 }.filter { _ in true }
+            .map { $0 }.filter { _ in true }
+            .map { $0 }.filter { _ in true }
+            .sink(receiveValue: { x in
+                sum += x
+            })
+
+            subscription.cancel()
+
+            XCTAssertEqual(sum, iterations * 10)
+        }
+    }
+
+    func testMapFilterCreating() {
+        measureS {
+            var sum = 0
+
+            for _ in 0 ..< iterations {
+                let subscription = AnyPublisher<Int, Never>.create { subscriber in
+                    for _ in 0 ..< 1 {
                         _ = subscriber.receive(1)
                     }
                 }
@@ -98,32 +127,6 @@ class CombineTests: XCTestCase {
                 .sink(receiveValue: { x in
                     sum += x
                 })
-
-            subscription.cancel()
-
-            XCTAssertEqual(sum, iterations * 10)
-        }
-    }
-
-    func testMapFilterCreating() {
-        measure {
-            var sum = 0
-
-            for _ in 0 ..< iterations {
-                let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                        for _ in 0 ..< 1 {
-                            _ = subscriber.receive(1)
-                        }
-                    }
-                    .map { $0 }.filter { _ in true }
-                    .map { $0 }.filter { _ in true }
-                    .map { $0 }.filter { _ in true }
-                    .map { $0 }.filter { _ in true }
-                    .map { $0 }.filter { _ in true }
-                    .map { $0 }.filter { _ in true }
-                    .sink(receiveValue: { x in
-                        sum += x
-                    })
 
                 subscription.cancel()
             }
@@ -133,10 +136,34 @@ class CombineTests: XCTestCase {
     }
 
     func testFlatMapsPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                    for _ in 0 ..< iterations * 10 {
+                for _ in 0 ..< iterations * 10 {
+                    _ = subscriber.receive(1)
+                }
+            }
+            .flatMap { x in Just(x) }
+            .flatMap { x in Just(x) }
+            .flatMap { x in Just(x) }
+            .flatMap { x in Just(x) }
+            .flatMap { x in Just(x) }
+            .sink(receiveValue: { x in
+                sum += x
+            })
+
+            subscription.cancel()
+
+            XCTAssertEqual(sum, iterations * 10)
+        }
+    }
+
+    func testFlatMapsCreating() {
+        measureS {
+            var sum = 0
+            for _ in 0 ..< iterations {
+                let subscription = AnyPublisher<Int, Never>.create { subscriber in
+                    for _ in 0 ..< 1 {
                         _ = subscriber.receive(1)
                     }
                 }
@@ -148,31 +175,6 @@ class CombineTests: XCTestCase {
                 .sink(receiveValue: { x in
                     sum += x
                 })
-
-            subscription.cancel()
-
-            XCTAssertEqual(sum, iterations * 10)
-        }
-    }
-
-
-    func testFlatMapsCreating() {
-        measure {
-            var sum = 0
-            for _ in 0 ..< iterations {
-                let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                        for _ in 0 ..< 1 {
-                            _ = subscriber.receive(1)
-                        }
-                    }
-                    .flatMap { x in Just(x) }
-                    .flatMap { x in Just(x) }
-                    .flatMap { x in Just(x) }
-                    .flatMap { x in Just(x) }
-                    .flatMap { x in Just(x) }
-                    .sink(receiveValue: { x in
-                        sum += x
-                    })
 
                 subscription.cancel()
             }
@@ -182,10 +184,39 @@ class CombineTests: XCTestCase {
     }
 
     func testFlatMapLatestPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                    for _ in 0 ..< iterations * 10 {
+                for _ in 0 ..< iterations * 10 {
+                    _ = subscriber.receive(1)
+                }
+            }
+            .map { x in Just(x) }
+            .switchToLatest()
+            .map { x in Just(x) }
+            .switchToLatest()
+            .map { x in Just(x) }
+            .switchToLatest()
+            .map { x in Just(x) }
+            .switchToLatest()
+            .map { x in Just(x) }
+            .switchToLatest()
+            .sink(receiveValue: { x in
+                sum += x
+            })
+
+            subscription.cancel()
+
+            XCTAssertEqual(sum, iterations * 10)
+        }
+    }
+
+    func testFlatMapLatestCreating() {
+        measureS {
+            var sum = 0
+            for _ in 0 ..< iterations {
+                let subscription = AnyPublisher<Int, Never>.create { subscriber in
+                    for _ in 0 ..< 1 {
                         _ = subscriber.receive(1)
                     }
                 }
@@ -203,35 +234,6 @@ class CombineTests: XCTestCase {
                     sum += x
                 })
 
-            subscription.cancel()
-
-            XCTAssertEqual(sum, iterations * 10)
-        }
-    }
-
-    func testFlatMapLatestCreating() {
-        measure {
-            var sum = 0
-            for _ in 0 ..< iterations {
-                let subscription = AnyPublisher<Int, Never>.create { subscriber in
-                        for _ in 0 ..< 1 {
-                            _ = subscriber.receive(1)
-                        }
-                    }
-                    .map { x in Just(x) }
-                    .switchToLatest()
-                    .map { x in Just(x) }
-                    .switchToLatest()
-                    .map { x in Just(x) }
-                    .switchToLatest()
-                    .map { x in Just(x) }
-                    .switchToLatest()
-                    .map { x in Just(x) }
-                    .switchToLatest()
-                    .sink(receiveValue: { x in
-                        sum += x
-                    })
-
                 subscription.cancel()
             }
 
@@ -240,17 +242,17 @@ class CombineTests: XCTestCase {
     }
 
     func testCombineLatestPumping() {
-        measure {
+        measureS {
             var sum = 0
-            
+
             let publisher = (0 ..< iterations * 10)
                 .map { _ in 1 }
                 .publisher
 
-            var last = Just(1).combineLatest(Just(1), Just(1), publisher) { x, _, _ ,_ in x }.eraseToAnyPublisher()
-        
+            var last = Just(1).combineLatest(Just(1), Just(1), publisher) { x, _, _, _ in x }.eraseToAnyPublisher()
+
             for _ in 0 ..< 6 {
-                last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _ ,_ in x }.eraseToAnyPublisher()
+                last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _, _ in x }.eraseToAnyPublisher()
             }
 
             let subscription = last
@@ -259,24 +261,24 @@ class CombineTests: XCTestCase {
                 })
 
             subscription.cancel()
-            
+
             XCTAssertEqual(sum, iterations * 10)
         }
     }
 
     func testCombineLatestCreating() {
-        measure {
+        measureS {
             var sum = 0
             for _ in 0 ..< iterations {
                 var last = AnyPublisher<Int, Never>.create { subscriber in
-                        for _ in 0 ..< 1 {
-                            _ = subscriber.receive(1)
-                        }
+                    for _ in 0 ..< 1 {
+                        _ = subscriber.receive(1)
                     }
-                    .combineLatest(Just(1), Just(1), Just(1)) { x, _, _ ,_ in x }.eraseToAnyPublisher()
+                }
+                .combineLatest(Just(1), Just(1), Just(1)) { x, _, _, _ in x }.eraseToAnyPublisher()
 
                 for _ in 0 ..< 6 {
-                    last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _ ,_ in x }.eraseToAnyPublisher()
+                    last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _, _ in x }.eraseToAnyPublisher()
                 }
 
                 let subscription = last

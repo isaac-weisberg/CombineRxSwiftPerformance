@@ -12,9 +12,11 @@ import XCTest
 let iterations = 10000
 
 class RxSwiftTests: XCTestCase {
-
+    func measureS(_ function: String = #function, _ work: () -> Void) {
+        Tally.instance.measureS(.vanilla, function, work)
+    }
     func testPublishSubjectPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subject = PublishSubject<Int>()
 
@@ -34,7 +36,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testPublishSubjectPumpingTwoSubscriptions() {
-        measure {
+        measureS {
             var sum = 0
             let subject = PublishSubject<Int>()
 
@@ -60,7 +62,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testPublishSubjectCreating() {
-        measure {
+        measureS {
             var sum = 0
 
             for _ in 0 ..< iterations * 10 {
@@ -83,7 +85,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testMapFilterPumping() {
-        measure {
+        measureS {
             var sum = 0
 
             let subscription = Observable<Int>
@@ -110,7 +112,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testMapFilterCreating() {
-        measure {
+        measureS {
             var sum = 0
 
             for _ in 0 ..< iterations {
@@ -139,7 +141,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testFlatMapsPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subscription = Observable<Int>
                 .create { observer in
@@ -164,7 +166,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testFlatMapsCreating() {
-        measure {
+        measureS {
             var sum = 0
             for _ in 0 ..< iterations {
                 let subscription = Observable<Int>.create { observer in
@@ -190,7 +192,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testFlatMapLatestPumping() {
-        measure {
+        measureS {
             var sum = 0
             let subscription = Observable<Int>.create { observer in
                 for _ in 0 ..< iterations * 10 {
@@ -214,7 +216,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testFlatMapLatestCreating() {
-        measure {
+        measureS {
             var sum = 0
             for _ in 0 ..< iterations {
                 let subscription = Observable<Int>.create { observer in
@@ -240,7 +242,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testCombineLatestPumping() {
-        measure {
+        measureS {
             var sum = 0
             var last = Observable.combineLatest(
                 Observable.just(1), Observable.just(1), Observable.just(1),
@@ -269,7 +271,7 @@ class RxSwiftTests: XCTestCase {
     }
 
     func testCombineLatestCreating() {
-        measure {
+        measureS {
             var sum = 0
             for _ in 0 ..< iterations {
                 var last = Observable.combineLatest(
