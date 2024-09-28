@@ -9,6 +9,7 @@ target 'SpeedTest' do
     project 'SpeedTest.xcodeproj'
     pod 'RxSwift', '~> 5.0'
     pod 'RxSwiftAwait', :path => '../RxSwift'
+    pod 'RxSwiftUnfair', :path => '../RxSwiftOSUnfairLock'
 end
 
 target 'SpeedTestCmd' do
@@ -17,12 +18,14 @@ target 'SpeedTestCmd' do
     project 'SpeedTest.xcodeproj'
     pod 'RxSwift', '~> 5.0'
     pod 'RxSwiftAwait', :path => '../RxSwift'
+    pod 'RxSwiftUnfair', :path => '../RxSwiftOSUnfairLock'
 end
 
 target "SpeedTestTests" do
     project 'SpeedTest.xcodeproj'
     pod 'RxSwift', '~> 5.0'
     pod 'RxSwiftAwait', :path => '../RxSwift'
+    pod 'RxSwiftUnfair', :path => '../RxSwiftOSUnfairLock'
 end
 
 post_install do |installer|

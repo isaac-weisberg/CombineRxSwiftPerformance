@@ -1,11 +1,3 @@
-//
-//  Publisher+Anonymous.swift
-//  SpeedTest
-//
-//  Created by Stefan Kofler on 05.08.19.
-//  Copyright © 2019 QuickBird Studios. All rights reserved.
-//
-
 import Combine
 
 extension Publishers {

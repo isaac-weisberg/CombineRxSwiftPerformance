@@ -3,15 +3,39 @@ import Foundation
 func tests() async {
     print("run ", #function)
     testsRx()
+    testsRxUnfair()
     testsCombine()
 
     await testsRxAwait()
 
 }
 
+func testsMapFilterPumping() async {
+    RxSwiftTests().testMapFilterPumping()
+    RxSwiftUnfairTests().testMapFilterPumping()
+    CombineTests().testMapFilterPumping()
+    await RxSwiftAwaitTests().testMapFilterPumping()
+}
+
 func testsRx() {
     print("run ", #function)
     let tests = RxSwiftTests()
+    tests.testPublishSubjectPumping()
+    tests.testPublishSubjectPumpingTwoSubscriptions()
+    tests.testPublishSubjectCreating()
+    tests.testMapFilterPumping()
+    tests.testMapFilterCreating()
+    tests.testFlatMapsPumping()
+    tests.testFlatMapsCreating()
+    tests.testFlatMapLatestPumping()
+    tests.testFlatMapLatestCreating()
+    tests.testCombineLatestPumping()
+    tests.testCombineLatestCreating()
+}
+
+func testsRxUnfair() {
+    print("run ", #function)
+    let tests = RxSwiftUnfairTests()
     tests.testPublishSubjectPumping()
     tests.testPublishSubjectPumpingTwoSubscriptions()
     tests.testPublishSubjectCreating()
@@ -58,6 +82,6 @@ func testsRxAwait() async {
 
 }
 
-testsRx()
-testsCombine()
-await testsRxAwait()
+//tests()
+
+await testsMapFilterPumping()

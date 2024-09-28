@@ -1,11 +1,3 @@
-//
-//  RxSwiftTests.swift
-//  SpeedTestTests
-//
-//  Created by Stefan Kofler on 02.08.19.
-//  Copyright © 2019 QuickBird Studios. All rights reserved.
-//
-
 import RxSwift
 
 let iterations = 10000
