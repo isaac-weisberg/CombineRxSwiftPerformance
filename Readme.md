@@ -11,6 +11,17 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
+UPDATE: with Swfit async algo!
+
+**Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  **RxSwiftAwait (ms)** | **swift-async-algorithms (ms)**
+--- | --- | --- | --- | --- | ---
+testMapFilterPumping() | 88 | 80 | 4 | 258 | 179
+testMapFilterCreating() | 60 | 75 | 44 | 96 | 45
+testFlatMapsPumping() | 299 | 292 | 202 | 1535 | 438
+testFlatMapsCreating() | 79 | 87 | 55 | 280 | 63
+testCombineLatestPumping() | 185 | 257 | 204 | 779 | 3982
+testCombineLatestCreating() | 192 | 247 | 227 | 545 | 1770
+
 **Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  **RxSwiftAwait (ms)**
 --- | --- | --- | --- | --- 
 testPublishSubjectPumping() | 203 | 189 | 54 | 779

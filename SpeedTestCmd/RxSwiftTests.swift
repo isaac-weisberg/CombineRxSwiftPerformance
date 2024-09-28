@@ -6,7 +6,7 @@ class RxSwiftTests {
     func measureS(_ function: String = #function, _ work: () -> Void) {
         Tally.instance.measureS(.vanilla, function, work)
     }
-    
+
     func testPublishSubjectPumping() {
         measureS {
             var sum = 0
@@ -237,18 +237,18 @@ class RxSwiftTests {
         measureS {
             var sum = 0
             var last = Observable.combineLatest(
-                Observable.just(1), Observable.just(1), Observable.just(1),
+                Observable.just(1), Observable.just(1),
                 Observable<Int>.create { observer in
                     for _ in 0 ..< iterations * 10 {
                         observer.on(.next(1))
                     }
                     return Disposables.create()
                 }
-            ) { x, _, _, _ in x }
+            ) { x, _, _ in x }
 
-            for _ in 0 ..< 6 {
+            for _ in 0 ..< 7 {
                 last = Observable
-                    .combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
+                    .combineLatest(Observable.just(1), Observable.just(1), last) { x, _, _ in x }
             }
 
             let subscription = last
@@ -272,12 +272,12 @@ class RxSwiftTests {
                             observer.on(.next(1))
                         }
                         return Disposables.create()
-                    }, Observable.just(1), Observable.just(1), Observable.just(1)
-                ) { x, _, _, _ in x }
+                    }, Observable.just(1), Observable.just(1)
+                ) { x, _, _ in x }
 
-                for _ in 0 ..< 6 {
+                for _ in 0 ..< 7 {
                     last = Observable
-                        .combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in
+                        .combineLatest(last, Observable.just(1), Observable.just(1)) { x, _, _ in
                             x
                         }
                 }

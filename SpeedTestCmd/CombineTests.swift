@@ -248,10 +248,10 @@ class CombineTests {
                 .map { _ in 1 }
                 .publisher
 
-            var last = Just(1).combineLatest(Just(1), Just(1), publisher) { x, _, _, _ in x }.eraseToAnyPublisher()
+            var last = Just(1).combineLatest(Just(1), publisher) { x, _, _ in x }.eraseToAnyPublisher()
 
-            for _ in 0 ..< 6 {
-                last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _, _ in x }.eraseToAnyPublisher()
+            for _ in 0 ..< 7 {
+                last = Just(1).combineLatest(Just(1), last) { x, _, _ in x }.eraseToAnyPublisher()
             }
 
             let subscription = last
@@ -274,10 +274,10 @@ class CombineTests {
                         _ = subscriber.receive(1)
                     }
                 }
-                .combineLatest(Just(1), Just(1), Just(1)) { x, _, _, _ in x }.eraseToAnyPublisher()
+                .combineLatest(Just(1), Just(1)) { x, _, _ in x }.eraseToAnyPublisher()
 
-                for _ in 0 ..< 6 {
-                    last = Just(1).combineLatest(Just(1), Just(1), last) { x, _, _, _ in x }.eraseToAnyPublisher()
+                for _ in 0 ..< 7 {
+                    last = Just(1).combineLatest(Just(1), last) { x, _, _ in x }.eraseToAnyPublisher()
                 }
 
                 let subscription = last
@@ -293,6 +293,4 @@ class CombineTests {
     }
 }
 
-func assertEqual(_ args: Any...) {
-    
-}
+func assertEqual(_ args: Any...) {}

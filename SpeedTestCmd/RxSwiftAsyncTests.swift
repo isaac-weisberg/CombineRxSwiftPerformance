@@ -235,18 +235,18 @@ class RxSwiftAwaitTests {
         let s = measureA()
         nonisolated(unsafe) var sum = 0
         var last = Observable.combineLatest(
-            Observable.just(1), Observable.just(1), Observable.just(1),
+            Observable.just(1), Observable.just(1),
             Observable<Int>.create { observer in
                 for _ in 0 ..< iterations * 10 {
                     await observer.on(.next(1))
                 }
                 return Disposables.create()
             }
-        ) { x, _, _, _ in x }
+        ) { x, _, _ in x }
 
-        for _ in 0 ..< 6 {
+        for _ in 0 ..< 7 {
             last = Observable
-                .combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
+                .combineLatest(Observable.just(1), Observable.just(1), last) { x, _, _ in x }
         }
 
         let subscription = await last
@@ -271,12 +271,12 @@ class RxSwiftAwaitTests {
                         await observer.on(.next(1))
                     }
                     return Disposables.create()
-                }, Observable.just(1), Observable.just(1), Observable.just(1)
-            ) { x, _, _, _ in x }
+                }, Observable.just(1), Observable.just(1)
+            ) { x, _, _ in x }
 
-            for _ in 0 ..< 6 {
+            for _ in 0 ..< 7 {
                 last = Observable
-                    .combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in
+                    .combineLatest(last, Observable.just(1), Observable.just(1)) { x, _, _ in
                         x
                     }
             }

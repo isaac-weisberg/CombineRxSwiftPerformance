@@ -6,10 +6,9 @@ class SwiftAsyncAlgoTests {
         Tally.instance.measureA(.asyncAlgo, function)
     }
 
-//
-//    func testPublishSubjectPumping() async {
+    func testPublishSubjectPumping() async {
 //        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
+//        var sum = 0
 //        let subject = PublishSubject<Int>()
 //
 //        let subscription = await subject
@@ -25,11 +24,11 @@ class SwiftAsyncAlgoTests {
 //
 //        assertEqual(sum, iterations * 100)
 //        s()
-//    }
-//
-//    func testPublishSubjectPumpingTwoSubscriptions() async {
+    }
+
+    func testPublishSubjectPumpingTwoSubscriptions() async {
 //        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
+//        var sum = 0
 //        let subject = PublishSubject<Int>()
 //
 //        let subscription1 = await subject
@@ -51,11 +50,11 @@ class SwiftAsyncAlgoTests {
 //
 //        assertEqual(sum, iterations * 100 * 2)
 //        s()
-//    }
-//
-//    func testPublishSubjectCreating() async {
+    }
+
+    func testPublishSubjectCreating() async {
 //        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
+//        var sum = 0
 //
 //        for _ in 0 ..< iterations * 10 {
 //            let subject = PublishSubject<Int>()
@@ -74,7 +73,7 @@ class SwiftAsyncAlgoTests {
 //
 //        assertEqual(sum, iterations * 10)
 //        s()
-//    }
+    }
 
     func testMapFilterPumping() async {
         let s = measureA()
@@ -97,101 +96,90 @@ class SwiftAsyncAlgoTests {
         assertEqual(sum, iterations * 10)
         s()
     }
-//
-//    func testMapFilterCreating() async {
+
+    func testMapFilterCreating() async {
+        let s = measureA()
+        var sum = 0
+
+        for _ in 0 ..< iterations {
+            let source = (0 ..< 1).async
+
+            let target = source
+                .map { $0 }.filter { _ in true }
+                .map { $0 }.filter { _ in true }
+                .map { $0 }.filter { _ in true }
+                .map { $0 }.filter { _ in true }
+                .map { $0 }.filter { _ in true }
+                .map { $0 }.filter { _ in true }
+
+            for await x in target {
+                sum += x
+            }
+
+        }
+
+        assertEqual(sum, iterations)
+        s()
+    }
+
+    func testFlatMapsPumping() async {
+        let s = measureA()
+        var sum = 0
+
+        let source = (0 ..< iterations * 10).async
+
+        let target = source
+            .flatMap { x in [x].async }
+            .flatMap { x in [x].async }
+            .flatMap { x in [x].async }
+            .flatMap { x in [x].async }
+            .flatMap { x in [x].async }
+
+        for await x in target {
+            sum += x
+        }
+
+        assertEqual(sum, iterations * 10)
+        s()
+    }
+
+    func testFlatMapsCreating() async {
+        let s = measureA()
+        var sum = 0
+        for _ in 0 ..< iterations {
+            let source = (0 ..< 1).async
+
+            let target = source
+                .flatMap { x in [x].async }
+                .flatMap { x in [x].async }
+                .flatMap { x in [x].async }
+                .flatMap { x in [x].async }
+                .flatMap { x in [x].async }
+
+            for await x in target {
+                sum += x
+            }
+        }
+
+        assertEqual(sum, iterations)
+        s()
+    }
+
+    /// wait, there is no flatMapLatest
+    func testFlatMapLatestPumping() async {
 //        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
-//
-//        for _ in 0 ..< iterations {
-//            let subscription = await Observable<Int>
-//                .create { observer in
-//                    for _ in 0 ..< 1 {
-//                        await observer.on(.next(1))
-//                    }
-//                    return Disposables.create()
-//                }
-//                .map { $0 }.filter { _ in true }
-//                .map { $0 }.filter { _ in true }
-//                .map { $0 }.filter { _ in true }
-//                .map { $0 }.filter { _ in true }
-//                .map { $0 }.filter { _ in true }
-//                .map { $0 }.filter { _ in true }
-//                .subscribe(onNext: { x in
-//                    sum += x
-//                })
-//
-//            await subscription.dispose()
-//        }
-//
-//        assertEqual(sum, iterations)
-//        s()
-//    }
-//
-//    func testFlatMapsPumping() async {
-//        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
-//        let subscription = await Observable<Int>
-//            .create { observer in
-//                for _ in 0 ..< iterations * 10 {
-//                    await observer.on(.next(1))
-//                }
-//                return Disposables.create()
-//            }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .subscribe(onNext: { x in
-//                sum += x
-//            })
-//
-//        await subscription.dispose()
-//
-//        assertEqual(sum, iterations * 10)
-//        s()
-//    }
-//
-//    func testFlatMapsCreating() async {
-//        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
-//        for _ in 0 ..< iterations {
-//            let subscription = await Observable<Int>.create { observer in
-//                for _ in 0 ..< 1 {
-//                    await observer.on(.next(1))
-//                }
-//                return Disposables.create()
-//            }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .flatMap { x in Observable.just(x) }
-//            .subscribe(onNext: { x in
-//                sum += x
-//            })
-//
-//            await subscription.dispose()
-//        }
-//
-//        assertEqual(sum, iterations)
-//        s()
-//    }
-//
-//    func testFlatMapLatestPumping() async {
-//        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
+//        var sum = 0
 //        let subscription = await Observable<Int>.create { observer in
 //            for _ in 0 ..< iterations * 10 {
 //                await observer.on(.next(1))
 //            }
 //            return Disposables.create()
 //        }
-//        .flatMapLatest { x in Observable.just(x) }
-//        .flatMapLatest { x in Observable.just(x) }
-//        .flatMapLatest { x in Observable.just(x) }
-//        .flatMapLatest { x in Observable.just(x) }
-//        .flatMapLatest { x in Observable.just(x) }
+//        .flatMapLatest { x in [x].async }
+//        .flatMapLatest { x in [x].async }
+//        .flatMapLatest { x in [x].async }
+//        .flatMapLatest { x in [x].async }
+//        .flatMapLatest { x in [x].async }
 //        .subscribe(onNext: { x in
 //            sum += x
 //        })
@@ -200,93 +188,81 @@ class SwiftAsyncAlgoTests {
 //
 //        assertEqual(sum, iterations * 10)
 //        s()
-//    }
-//
-//    func testFlatMapLatestCreating() async {
+    }
+
+    /// wait, there is no flatMapLatest
+    func testFlatMapLatestCreating() async {
 //        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
+//        var sum = 0
 //        for _ in 0 ..< iterations {
-//            let subscription = await Observable<Int>.create { observer in
-//                for _ in 0 ..< 1 {
-//                    await observer.on(.next(1))
-//                }
-//                return Disposables.create()
-//            }
-//            .flatMapLatest { x in Observable.just(x) }
-//            .flatMapLatest { x in Observable.just(x) }
-//            .flatMapLatest { x in Observable.just(x) }
-//            .flatMapLatest { x in Observable.just(x) }
-//            .flatMapLatest { x in Observable.just(x) }
-//            .subscribe(onNext: { x in
-//                sum += x
-//            })
+//            let source = (0 ..< 1).async
 //
-//            await subscription.dispose()
-//        }
 //
-//        assertEqual(sum, iterations)
-//        s()
-//    }
-//
-//    func testCombineLatestPumping() async {
-//        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
-//        var last = Observable.combineLatest(
-//            Observable.just(1), Observable.just(1), Observable.just(1),
-//            Observable<Int>.create { observer in
-//                for _ in 0 ..< iterations * 10 {
-//                    await observer.on(.next(1))
-//                }
-//                return Disposables.create()
-//            }
-//        ) { x, _, _, _ in x }
-//
-//        for _ in 0 ..< 6 {
-//            last = Observable
-//                .combineLatest(Observable.just(1), Observable.just(1), Observable.just(1), last) { x, _, _, _ in x }
-//        }
-//
-//        let subscription = await last
-//            .subscribe(onNext: { x in
-//                sum += x
-//            })
-//
-//        await subscription.dispose()
-//
-//        assertEqual(sum, iterations * 10)
-//
-//        s()
-//    }
-//
-//    func testCombineLatestCreating() async {
-//        let s = measureA()
-//        nonisolated(unsafe) var sum = 0
-//        for _ in 0 ..< iterations {
-//            var last = Observable.combineLatest(
-//                Observable<Int>.create { observer in
-//                    for _ in 0 ..< 1 {
-//                        await observer.on(.next(1))
-//                    }
-//                    return Disposables.create()
-//                }, Observable.just(1), Observable.just(1), Observable.just(1)
-//            ) { x, _, _, _ in x }
-//
-//            for _ in 0 ..< 6 {
-//                last = Observable
-//                    .combineLatest(last, Observable.just(1), Observable.just(1), Observable.just(1)) { x, _, _, _ in
-//                        x
-//                    }
-//            }
-//
-//            let subscription = await last
+//            let target = source
+//                .flatMapLatest { x in [x].async }
+//                .flatMapLatest { x in [x].async }
+//                .flatMapLatest { x in [x].async }
+//                .flatMapLatest { x in [x].async }
+//                .flatMapLatest { x in [x].async }
 //                .subscribe(onNext: { x in
 //                    sum += x
 //                })
 //
-//            await subscription.dispose()
+        ////            await subscription.dispose()
 //        }
 //
 //        assertEqual(sum, iterations)
 //        s()
-//    }
+    }
+
+    func testCombineLatestPumping() async {
+        let s = measureA()
+        var sum = 0
+
+        let source = (0 ..< iterations * 10).async
+
+        let last = combineLatest(
+            [1].async, [1].async, source
+        )
+
+        let iter1 = combineLatest([1].async, [1].async, last)
+        let iter2 = combineLatest([1].async, [1].async, iter1)
+        let iter3 = combineLatest([1].async, [1].async, iter2)
+        let iter4 = combineLatest([1].async, [1].async, iter3)
+        let iter5 = combineLatest([1].async, [1].async, iter4)
+        let iter6 = combineLatest([1].async, [1].async, iter5)
+
+        for await x in iter6 {
+            sum += x.2.2.2.2.2.2.2
+        }
+
+        assertEqual(sum, iterations * 10)
+
+        s()
+    }
+
+    func testCombineLatestCreating() async {
+        let s = measureA()
+        var sum = 0
+        for _ in 0 ..< iterations {
+            let source = [0].async
+            let last = combineLatest(
+                source, [1].async, [1].async
+            )
+
+            let iter1 = combineLatest(last, [1].async, [1].async)
+            let iter2 = combineLatest(iter1, [1].async, [1].async)
+            let iter3 = combineLatest(iter2, [1].async, [1].async)
+            let iter4 = combineLatest(iter3, [1].async, [1].async)
+            let iter5 = combineLatest(iter4, [1].async, [1].async)
+            let iter6 = combineLatest(iter5, [1].async, [1].async)
+
+            for await x in iter6 {
+                sum += x.0.0.0.0.0.0.0
+            }
+        }
+
+        assertEqual(sum, iterations)
+        s()
+    }
 }
