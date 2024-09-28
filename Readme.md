@@ -11,19 +11,19 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
-**Test** | **RxSwift (ms)** | **Combine (ms)** | **RxSwiftUnfair (ms)** | **RxSwiftAwait (ms)**
+**Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  | **RxSwiftAwait (ms)**
 --- | --- | --- | --- | --- 
-**PublishSubjectPumping** | 157 | 51 | 142
-**PublishSubjectPumpingTwoSubscriptions** | 251 | 212 | 232
-**PublishSubjectCreating** | 90 | 84 | 102
-**MapFilterPumping** | 64 | 6 | 
-**MapFilterCreating** | 53 | 39 | 
-**FlatMapsPumping** | 231 | 171 | 231 (229, 155, 228)
-**FlatMapsCreating** | 68 | 51 | 81 
-**FlatMapLatestPumping** | 247 | 172 | 315
-**FlatMapLatestCreating** | 71 | 52 | 93
-**CombineLatestPumping** | 137 | 157 | 173
-**CombineLatestCreating** | 166 | 192 | 221
+| testPublishSubjectPumping() | 203 | 189 | 54 | 779 |
+| testPublishSubjectPumpingTwoSubscriptions() | 333 | 310 | 220 | 1130 |
+| testPublishSubjectCreating() | 106 | 116 | 94 | 244 |
+| testMapFilterPumping() | 82 | 76 | 4 | 250 |
+| testMapFilterCreating() | 59 | 74 | 43 | 94 |
+| testFlatMapsPumping() | 292 | 287 | 198 | 1522 |
+| testFlatMapsCreating() | 78 | 88 | 56 | 279 |
+| testFlatMapLatestPumping() | 301 | 381 | 210 | 1713 |
+| testFlatMapLatestCreating() | 79 | 100 | 58 | 301 |
+| testCombineLatestPumping() | 176 | 228 | 214 | 737 |
+| testCombineLatestCreating() | 204 | 267 | 242 | 615 |
 
 ### Testing Details
 **Machine**: MacBook Pro 2023, Apple M3 Max, 48 GB

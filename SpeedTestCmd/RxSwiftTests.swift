@@ -1,4 +1,4 @@
-import RxSwift
+@preconcurrency import RxSwift
 
 let iterations = 10000
 

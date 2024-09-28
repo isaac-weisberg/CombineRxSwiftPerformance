@@ -34,6 +34,7 @@ post_install do |installer|
             target.build_configurations.each do |config|
                 config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.6'
                 config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.15'
+                config.build_settings['MACH_O_TYPE'] = 'staticlib'
             end
         end
     end

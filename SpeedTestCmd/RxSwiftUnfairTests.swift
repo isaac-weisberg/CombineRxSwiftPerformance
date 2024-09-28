@@ -3,7 +3,7 @@ import RxSwiftUnfair
 
 class RxSwiftUnfairTests {
     func measureS(_ function: String = #function, _ work: () -> Void) {
-        Tally.instance.measureS(.vanilla, function, work)
+        Tally.instance.measureS(.unfairLock, function, work)
     }
 
     func testPublishSubjectPumping() {

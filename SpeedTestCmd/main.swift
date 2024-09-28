@@ -5,17 +5,16 @@ func tests() async {
     testsRx()
     testsRxUnfair()
     testsCombine()
-
     await testsRxAwait()
 
 }
 
-func testsMapFilterPumping() async {
-    RxSwiftTests().testMapFilterPumping()
-    RxSwiftUnfairTests().testMapFilterPumping()
-    CombineTests().testMapFilterPumping()
-    await RxSwiftAwaitTests().testMapFilterPumping()
-}
+// func testsMapFilterPumpingSync() {
+//    RxSwiftTests().testMapFilterPumping()
+//    RxSwiftUnfairTests().testMapFilterPumping()
+//    CombineTests().testMapFilterPumping()
+////    await RxSwiftAwaitTests().testMapFilterPumping()
+// }
 
 func testsRx() {
     print("run ", #function)
@@ -82,6 +81,11 @@ func testsRxAwait() async {
 
 }
 
-//tests()
+await tests()
 
-await testsMapFilterPumping()
+// await RxSwiftAwaitTests().testMapFilterPumping()
+
+// RxSwiftTests().testMapFilterPumping()
+// RxSwiftUnfairTests().testMapFilterPumping()
+// CombineTests().testMapFilterPumping()
+// await RxSwiftAwaitTests().testMapFilterPumping()
