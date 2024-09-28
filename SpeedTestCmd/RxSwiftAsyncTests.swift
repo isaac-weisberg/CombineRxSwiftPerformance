@@ -356,7 +356,7 @@ final class Tally: @unchecked Sendable {
 
         if allGood {
             print(
-                "| \(label) | \(vanillaResults[label]!) | \(unfairLockResults[label]!) | \(combineResults[label]!) | \(asyncResults[label]!) |"
+                "\(label) | \(vanillaResults[label]!) | \(unfairLockResults[label]!) | \(combineResults[label]!) | \(asyncResults[label]!)"
             )
 //            print(
 //                "ASDF \(label) rxswift: \(vanillaResults[label]!) ms, rsswiftunfair: \(unfairLockResults[label]!) ms,

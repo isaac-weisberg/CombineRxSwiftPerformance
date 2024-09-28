@@ -11,24 +11,24 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
-**Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  | **RxSwiftAwait (ms)**
+**Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  **RxSwiftAwait (ms)**
 --- | --- | --- | --- | --- 
-| testPublishSubjectPumping() | 203 | 189 | 54 | 779 |
-| testPublishSubjectPumpingTwoSubscriptions() | 333 | 310 | 220 | 1130 |
-| testPublishSubjectCreating() | 106 | 116 | 94 | 244 |
-| testMapFilterPumping() | 82 | 76 | 4 | 250 |
-| testMapFilterCreating() | 59 | 74 | 43 | 94 |
-| testFlatMapsPumping() | 292 | 287 | 198 | 1522 |
-| testFlatMapsCreating() | 78 | 88 | 56 | 279 |
-| testFlatMapLatestPumping() | 301 | 381 | 210 | 1713 |
-| testFlatMapLatestCreating() | 79 | 100 | 58 | 301 |
-| testCombineLatestPumping() | 176 | 228 | 214 | 737 |
-| testCombineLatestCreating() | 204 | 267 | 242 | 615 |
+testPublishSubjectPumping() | 203 | 189 | 54 | 779
+testPublishSubjectPumpingTwoSubscriptions() | 333 | 310 | 220 | 1130
+testPublishSubjectCreating() | 106 | 116 | 94 | 244
+testMapFilterPumping() | 82 | 76 | 4 | 250
+testMapFilterCreating() | 59 | 74 | 43 | 94
+testFlatMapsPumping() | 292 | 287 | 198 | 1522
+testFlatMapsCreating() | 78 | 88 | 56 | 279
+testFlatMapLatestPumping() | 301 | 381 | 210 | 1713
+testFlatMapLatestCreating() | 79 | 100 | 58 | 301
+testCombineLatestPumping() | 176 | 228 | 214 | 737
+testCombineLatestCreating() | 204 | 267 | 242 | 615
 
 ### Testing Details
-**Machine**: MacBook Pro 2023, Apple M3 Max, 48 GB
-**IDE**: Xcode 16.0 beta 6 (11M382q)
-**Testing Device**: iPhone 12 mini Simulator
+**Machine**: MacBook Pro 2023, Apple M3 Max, 48 GB  
+**IDE**: Xcode 16.0  
+**Testing Device**: macOS cli  
 
 ## old result
 
