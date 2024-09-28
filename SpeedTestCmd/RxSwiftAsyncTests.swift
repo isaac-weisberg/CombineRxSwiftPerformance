@@ -299,6 +299,7 @@ enum Source {
     case combine
     case vanilla
     case unfairLock
+    case asyncAlgo
 }
 
 final class Tally: @unchecked Sendable {
@@ -308,6 +309,7 @@ final class Tally: @unchecked Sendable {
     var unfairLockResults: [String: Int] = [:]
     var combineResults: [String: Int] = [:]
     var asyncResults: [String: Int] = [:]
+    var asyncAlgo: [String: Int] = [:]
 
     func measureS(_ source: Source, _ label: String = #function, _ work: () -> Void) {
         let start = Date()
@@ -339,6 +341,8 @@ final class Tally: @unchecked Sendable {
     func writeResults(_ source: Source, _ label: String, _ ms: Int) {
         switch source {
 
+        case .asyncAlgo:
+            asyncAlgo[label] = ms
         case .async:
             asyncResults[label] = ms
         case .combine:
@@ -349,14 +353,20 @@ final class Tally: @unchecked Sendable {
             unfairLockResults[label] = ms
         }
 
-        let allGood = [asyncResults.keys, combineResults.keys, vanillaResults.keys, unfairLockResults.keys]
-            .allSatisfy { keys in
-                keys.contains(where: { $0 == label })
-            }
+        let allGood = [
+            asyncResults.keys,
+            combineResults.keys,
+            vanillaResults.keys,
+            unfairLockResults.keys,
+            asyncAlgo.keys,
+        ]
+        .allSatisfy { keys in
+            keys.contains(where: { $0 == label })
+        }
 
         if allGood {
             print(
-                "\(label) | \(vanillaResults[label]!) | \(unfairLockResults[label]!) | \(combineResults[label]!) | \(asyncResults[label]!)"
+                "\(label) | \(vanillaResults[label]!) | \(unfairLockResults[label]!) | \(combineResults[label]!) | \(asyncResults[label]!) | \(asyncAlgo[label]!)"
             )
 //            print(
 //                "ASDF \(label) rxswift: \(vanillaResults[label]!) ms, rsswiftunfair: \(unfairLockResults[label]!) ms,

@@ -83,13 +83,11 @@ func testsRxAwait() async {
 
 // await tests()
 
-// await RxSwiftAwaitTests().testMapFilterPumping()
+RxSwiftTests().testMapFilterPumping()
+RxSwiftUnfairTests().testMapFilterPumping()
+CombineTests().testMapFilterPumping()
+await RxSwiftAwaitTests().testMapFilterPumping()
+await SwiftAsyncAlgoTests().testMapFilterPumping()
 
-// RxSwiftTests().testMapFilterPumping()
-// RxSwiftUnfairTests().testMapFilterPumping()
-// CombineTests().testMapFilterPumping()
-// await RxSwiftAwaitTests().testMapFilterPumping()
-
-await testStateHolderActor()
-
-testStateHolderLocked()
+// await testStateHolderActor()
+// testStateHolderLocked()
