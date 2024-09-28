@@ -1,16 +1,28 @@
 PODS:
   - RxSwift (5.0.0)
+  - RxSwiftAwait (0.0.1)
+  - RxSwiftUnfair (6.7.1)
 
 DEPENDENCIES:
   - RxSwift (~> 5.0)
+  - RxSwiftAwait (from `../RxSwift`)
+  - RxSwiftUnfair (from `../RxSwiftOSUnfairLock`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - RxSwift
 
+EXTERNAL SOURCES:
+  RxSwiftAwait:
+    :path: "../RxSwift"
+  RxSwiftUnfair:
+    :path: "../RxSwiftOSUnfairLock"
+
 SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  RxSwiftAwait: 1efa88b779db708a531290401a908e1c5a446547
+  RxSwiftUnfair: d7a635ddaaca9470aa380a4228f86e2d32b2847b
 
-PODFILE CHECKSUM: b296398697559b9c7dc90f3600c5a11d02a4cd29
+PODFILE CHECKSUM: e0def8b7510756d0c26f0286bbfcdefde9a74542
 
 COCOAPODS: 1.15.2

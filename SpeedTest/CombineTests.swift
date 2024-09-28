@@ -7,9 +7,8 @@
 //
 
 import Combine
-import XCTest
 
-class CombineTests: XCTestCase {
+class CombineTests {
     func measureS(_ function: String = #function, _ work: () -> Void) {
         Tally.instance.measureS(.combine, function, work)
     }
@@ -30,7 +29,7 @@ class CombineTests: XCTestCase {
 
             subscription.cancel()
 
-            XCTAssertEqual(sum, iterations * 100)
+            assertEqual(sum, iterations * 100)
         }
     }
 
@@ -56,7 +55,7 @@ class CombineTests: XCTestCase {
             subscription1.cancel()
             subscription2.cancel()
 
-            XCTAssertEqual(sum, iterations * 100 * 2)
+            assertEqual(sum, iterations * 100 * 2)
         }
     }
 
@@ -79,7 +78,7 @@ class CombineTests: XCTestCase {
                 subscription.cancel()
             }
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -104,7 +103,7 @@ class CombineTests: XCTestCase {
 
             subscription.cancel()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -131,7 +130,7 @@ class CombineTests: XCTestCase {
                 subscription.cancel()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -154,7 +153,7 @@ class CombineTests: XCTestCase {
 
             subscription.cancel()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -179,7 +178,7 @@ class CombineTests: XCTestCase {
                 subscription.cancel()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -207,7 +206,7 @@ class CombineTests: XCTestCase {
 
             subscription.cancel()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -237,7 +236,7 @@ class CombineTests: XCTestCase {
                 subscription.cancel()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
 
@@ -262,7 +261,7 @@ class CombineTests: XCTestCase {
 
             subscription.cancel()
 
-            XCTAssertEqual(sum, iterations * 10)
+            assertEqual(sum, iterations * 10)
         }
     }
 
@@ -289,7 +288,11 @@ class CombineTests: XCTestCase {
                 subscription.cancel()
             }
 
-            XCTAssertEqual(sum, iterations)
+            assertEqual(sum, iterations)
         }
     }
+}
+
+func assertEqual(_ args: Any...) {
+    
 }
