@@ -172,11 +172,11 @@
 		A47B9A1F2C8F6ED600F5EAD4 /* SpeedTestCmd */ = {
 			isa = PBXGroup;
 			children = (
-				A458227A2CA8922C00A2A20F /* SwiftAsyncAlgoTests.swift */,
-				A45822752CA889C400A2A20F /* PrimitiveTests.swift */,
-				A4559F732CA7DE4C0079B8A4 /* RxSwiftUnfairTests.swift */,
-				A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */,
 				A47B9A272C8F703800F5EAD4 /* Publisher+Anonymous.swift */,
+				A45822752CA889C400A2A20F /* PrimitiveTests.swift */,
+				A458227A2CA8922C00A2A20F /* SwiftAsyncAlgoTests.swift */,
+				A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */,
+				A4559F732CA7DE4C0079B8A4 /* RxSwiftUnfairTests.swift */,
 				A47B9A222C8F6F0700F5EAD4 /* RxSwiftTests.swift */,
 				A47B9A232C8F6F0700F5EAD4 /* CombineTests.swift */,
 				A47B9A1E2C8F6ED600F5EAD4 /* main.swift */,
@@ -550,7 +550,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -568,7 +568,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

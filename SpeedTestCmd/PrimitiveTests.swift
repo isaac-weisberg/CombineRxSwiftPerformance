@@ -31,7 +31,7 @@ final actor StateHolderActor {
     }
 }
 
-func measureSH(function: StaticString = #function) -> () -> Void {
+func measureSH(function: String = #function) -> () -> Void {
     let start = Date()
 
     return {
@@ -39,7 +39,7 @@ func measureSH(function: StaticString = #function) -> () -> Void {
 
         let diff = end.timeIntervalSinceReferenceDate - start.timeIntervalSinceReferenceDate
 
-        print("ASDF measure SH \(function) \(Int(diff * 1000)) ms")
+        print("ASDF measure SH \(function) \(Int(diff * 1_000_000)) microseconds")
     }
 }
 
@@ -61,16 +61,18 @@ func testStateHolderActor() async {
 
 func testStateHolderLocked() {
     let e = measureSH()
-    let actor = StateHolderLock()
+    let stateHolder = StateHolderLock()
 
     var sum = 0
-    actor.onNewValueReceived = { val in
+    stateHolder.onNewValueReceived = { val in
         sum += val
     }
 
+    os_unfair_lock_lock(&stateHolder.lock)
     for i in 0 ..< iterations * 100 {
-        actor.handleValueRecieved(1)
+        stateHolder.handleValueRecieved(1)
     }
+    os_unfair_lock_unlock(&stateHolder.lock)
 
     e()
 }

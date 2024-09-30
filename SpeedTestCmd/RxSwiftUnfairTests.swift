@@ -6,6 +6,10 @@ class RxSwiftUnfairTests {
         Tally.instance.measureS(.unfairLock, function, work)
     }
 
+    func measureN(_ function: String = #function) -> () -> Void {
+        Tally.instance.measureN(.unfairLock, function)
+    }
+
     func testPublishSubjectPumping() {
         measureS {
             var sum = 0
@@ -290,6 +294,43 @@ class RxSwiftUnfairTests {
             }
 
             assertEqual(sum, iterations)
+        }
+    }
+
+    func testCombineLatestCreatingConcurrent() async {
+        await withCheckedContinuation { cont in
+            var sum = 0
+            let scheduler = ConcurrentDispatchQueueScheduler(qos: .userInteractive)
+
+            let source = Observable<Int>.create { observer in
+                for _ in 0 ..< iterations {
+                    observer.on(.next(1))
+                }
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            .observe(on: scheduler)
+
+            var last = Observable.combineLatest(
+                source, source, source
+            ) { x, _, _ in x }
+
+            for _ in 0 ..< 7 {
+                last = Observable
+                    .combineLatest(last, source, source) { x, _, _ in
+                        x
+                    }
+            }
+
+            let s = measureN()
+            _ = last
+                .subscribe(onNext: { x in
+                    sum += x
+                }, onCompleted: {
+
+                    s()
+                    cont.resume()
+                })
         }
     }
 }

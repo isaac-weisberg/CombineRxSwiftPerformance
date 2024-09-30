@@ -1,9 +1,18 @@
 
 import AsyncAlgorithms
+import Dispatch
+
+actor PerformActor {
+    static let shared = PerformActor()
+}
 
 class SwiftAsyncAlgoTests {
     func measureA(_ function: String = #function) -> () -> Void {
         Tally.instance.measureA(.asyncAlgo, function)
+    }
+
+    func measureN(_ function: String = #function) -> () -> Void {
+        Tally.instance.measureN(.asyncAlgo, function)
     }
 
     func testPublishSubjectPumping() async {
@@ -89,9 +98,13 @@ class SwiftAsyncAlgoTests {
             .map { $0 }.filter { _ in true }
             .map { $0 }.filter { _ in true }
 
-        for await x in target {
-            sum += x
+        func perform(_: isolated PerformActor) async {
+            for await x in target {
+                sum += x
+            }
         }
+
+        await perform(.shared)
 
         assertEqual(sum, iterations * 10)
         s()
@@ -101,22 +114,25 @@ class SwiftAsyncAlgoTests {
         let s = measureA()
         var sum = 0
 
-        for _ in 0 ..< iterations {
-            let source = (0 ..< 1).async
+        func perform(_: isolated PerformActor) async {
+            for _ in 0 ..< iterations {
+                let source = (0 ..< 1).async
 
-            let target = source
-                .map { $0 }.filter { _ in true }
-                .map { $0 }.filter { _ in true }
-                .map { $0 }.filter { _ in true }
-                .map { $0 }.filter { _ in true }
-                .map { $0 }.filter { _ in true }
-                .map { $0 }.filter { _ in true }
+                let target = source
+                    .map { $0 }.filter { _ in true }
+                    .map { $0 }.filter { _ in true }
+                    .map { $0 }.filter { _ in true }
+                    .map { $0 }.filter { _ in true }
+                    .map { $0 }.filter { _ in true }
+                    .map { $0 }.filter { _ in true }
 
-            for await x in target {
-                sum += x
+                for await x in target {
+                    sum += x
+                }
             }
-
         }
+
+        await perform(.shared)
 
         assertEqual(sum, iterations)
         s()
@@ -135,9 +151,13 @@ class SwiftAsyncAlgoTests {
             .flatMap { x in [x].async }
             .flatMap { x in [x].async }
 
-        for await x in target {
-            sum += x
+        func perform(_: isolated PerformActor) async {
+            for await x in target {
+                sum += x
+            }
         }
+
+        await perform(.shared)
 
         assertEqual(sum, iterations * 10)
         s()
@@ -146,20 +166,25 @@ class SwiftAsyncAlgoTests {
     func testFlatMapsCreating() async {
         let s = measureA()
         var sum = 0
-        for _ in 0 ..< iterations {
-            let source = (0 ..< 1).async
+        func perform(_: isolated PerformActor) async {
+            for _ in 0 ..< iterations {
+                let source = (0 ..< 1).async
 
-            let target = source
-                .flatMap { x in [x].async }
-                .flatMap { x in [x].async }
-                .flatMap { x in [x].async }
-                .flatMap { x in [x].async }
-                .flatMap { x in [x].async }
+                let target = source
+                    .flatMap { x in [x].async }
+                    .flatMap { x in [x].async }
+                    .flatMap { x in [x].async }
+                    .flatMap { x in [x].async }
+                    .flatMap { x in [x].async }
 
-            for await x in target {
-                sum += x
+                for await x in target {
+                    sum += x
+                }
             }
+
         }
+
+        await perform(.shared)
 
         assertEqual(sum, iterations)
         s()
@@ -232,9 +257,12 @@ class SwiftAsyncAlgoTests {
         let iter5 = combineLatest([1].async, [1].async, iter4)
         let iter6 = combineLatest([1].async, [1].async, iter5)
 
-        for await x in iter6 {
-            sum += x.2.2.2.2.2.2.2
+        func perform(_: isolated PerformActor) async {
+            for await x in iter6 {
+                sum += x.2.2.2.2.2.2.2
+            }
         }
+        await perform(.shared)
 
         assertEqual(sum, iterations * 10)
 
@@ -244,25 +272,69 @@ class SwiftAsyncAlgoTests {
     func testCombineLatestCreating() async {
         let s = measureA()
         var sum = 0
-        for _ in 0 ..< iterations {
-            let source = [0].async
-            let last = combineLatest(
-                source, [1].async, [1].async
-            )
+        func perform(_: isolated PerformActor) async {
+            for _ in 0 ..< iterations {
+                let source = [0].async
+                let last = combineLatest(
+                    source, [1].async, [1].async
+                )
 
-            let iter1 = combineLatest(last, [1].async, [1].async)
-            let iter2 = combineLatest(iter1, [1].async, [1].async)
-            let iter3 = combineLatest(iter2, [1].async, [1].async)
-            let iter4 = combineLatest(iter3, [1].async, [1].async)
-            let iter5 = combineLatest(iter4, [1].async, [1].async)
-            let iter6 = combineLatest(iter5, [1].async, [1].async)
+                let iter1 = combineLatest(last, [1].async, [1].async)
+                let iter2 = combineLatest(iter1, [1].async, [1].async)
+                let iter3 = combineLatest(iter2, [1].async, [1].async)
+                let iter4 = combineLatest(iter3, [1].async, [1].async)
+                let iter5 = combineLatest(iter4, [1].async, [1].async)
+                let iter6 = combineLatest(iter5, [1].async, [1].async)
 
-            for await x in iter6 {
-                sum += x.0.0.0.0.0.0.0
+                for await x in iter6 {
+                    sum += x.0.0.0.0.0.0.0
+                }
             }
         }
 
+        await perform(.shared)
+
         assertEqual(sum, iterations)
+        s()
+    }
+
+    func testCombineLatestCreatingConcurrent() async {
+
+        let queue = DispatchQueue(label: "conc", attributes: .concurrent)
+        let source = AsyncStream<Int> { continuation in
+            for i in 0 ..< iterations {
+                Task {
+                    //                queue.async {
+                    continuation.yield(1)
+                    //                }
+
+                }
+            }
+        }
+
+        let last = combineLatest(
+            source, source, source
+        )
+
+        let iter1 = combineLatest(last, source, source)
+        let iter2 = combineLatest(iter1, source, source)
+        let iter3 = combineLatest(iter2, source, source)
+        let iter4 = combineLatest(iter3, source, source)
+        let iter5 = combineLatest(iter4, source, source)
+        let iter6 = combineLatest(iter5, source, source)
+
+        let s = measureN()
+
+        let edge = 9749//iterations - 128
+        var sum = 0
+        for await i in iter6 {
+            sum += 1
+            print("ASDF", sum)
+            if sum == edge {
+                break
+            }
+        }
+
         s()
     }
 }

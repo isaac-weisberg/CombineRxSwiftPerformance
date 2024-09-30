@@ -7,10 +7,15 @@
 //
 
 import Combine
+import Dispatch
 
 class CombineTests {
     func measureS(_ function: String = #function, _ work: () -> Void) {
         Tally.instance.measureS(.combine, function, work)
+    }
+
+    func measureN(_ function: String = #function) -> () -> Void {
+        Tally.instance.measureN(.combine, function)
     }
 
     func testPublishSubjectPumping() {
@@ -289,6 +294,38 @@ class CombineTests {
             }
 
             assertEqual(sum, iterations)
+        }
+    }
+
+    func testCombineLatestCreatingConcurrent() async {
+        await withCheckedContinuation { cont in
+
+            var sum = 0
+            let concurrentQueue = DispatchQueue(label: "combine", attributes: .concurrent)
+
+            let source = AnyPublisher<Int, Never>.create { subscriber in
+                for _ in 0 ..< iterations {
+                    _ = subscriber.receive(1)
+                }
+                subscriber.receive(completion: .finished)
+            }
+            .receive(on: concurrentQueue)
+
+            var last = source.combineLatest(source, source) { x, _, _ in x }.eraseToAnyPublisher()
+
+            for _ in 0 ..< 7 {
+                last = source.combineLatest(source, last) { x, _, _ in x }.eraseToAnyPublisher()
+            }
+
+            let s = measureN()
+            let sink = Subscribers.Sink<Int, Never>(receiveCompletion: { _ in
+                s()
+                cont.resume()
+            }, receiveValue: { x in
+                sum += x
+            })
+
+            last.subscribe(sink)
         }
     }
 }

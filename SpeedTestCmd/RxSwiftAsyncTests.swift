@@ -1,8 +1,12 @@
 import RxSwiftAwait
 
-class RxSwiftAwaitTests {
+class RxSwiftAwaitTests: @unchecked Sendable {
     func measureA(_ function: String = #function) -> () -> Void {
         Tally.instance.measureA(.async, function)
+    }
+
+    func measureN(_ function: String = #function) -> @Sendable () -> Void {
+        Tally.instance.measureN(.async, function)
     }
 
     func testPublishSubjectPumping() async {
@@ -292,6 +296,45 @@ class RxSwiftAwaitTests {
         assertEqual(sum, iterations)
         s()
     }
+
+    func testCombineLatestCreatingConcurrent() async {
+        await withCheckedContinuation { cont in
+            Task { @Sendable in
+                nonisolated(unsafe) var sum = 0
+                let scheduler = ConcurrentAsyncScheduler.instance
+
+                let source = Observable<Int>.create { observer in
+                    for _ in 0 ..< iterations {
+                        await observer.on(.next(1))
+                    }
+                    await observer.onCompleted()
+                    return Disposables.create()
+                }
+                .observe(on: scheduler)
+
+                var last = Observable.combineLatest(
+                    source, source, source
+                ) { x, _, _ in x }
+
+                for _ in 0 ..< 7 {
+                    last = Observable
+                        .combineLatest(last, source, source) { x, _, _ in
+                            x
+                        }
+                }
+                
+                let s = measureN()
+                _ = await last
+                    .subscribe(onNext: { x in
+                        sum += x
+                    }, onCompleted: {
+
+                        s()
+                        cont.resume()
+                    })
+            }
+        }
+    }
 }
 
 enum Source {
@@ -312,6 +355,7 @@ final class Tally: @unchecked Sendable {
     var asyncAlgo: [String: Int] = [:]
 
     func measureS(_ source: Source, _ label: String = #function, _ work: () -> Void) {
+        print("run", label)
         let start = Date()
 
         work()
@@ -324,7 +368,24 @@ final class Tally: @unchecked Sendable {
         writeResults(source, label, ms)
     }
 
+    func measureN(_ source: Source, _ label: String = #function) -> @Sendable () -> Void {
+        print("run", label)
+        let start = Date()
+
+        return { [self] in
+            let end = Date()
+
+            let diff = end.timeIntervalSinceReferenceDate - start.timeIntervalSinceReferenceDate
+
+            let ms = Int(diff * 1000)
+
+            writeResults(source, label, ms)
+        }
+    }
+
     func measureA(_ source: Source, _ label: String = #function) -> () -> Void {
+        print("run", label)
+
         let start = Date()
 
         return { [self] in
