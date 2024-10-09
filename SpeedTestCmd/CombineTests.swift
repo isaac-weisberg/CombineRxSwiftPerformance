@@ -328,6 +328,80 @@ class CombineTests {
             last.subscribe(sink)
         }
     }
+    
+    
+    func testCombineLatestCreatingCombineConcurrentDispatchQ() async {
+        await withCheckedContinuation { cont in
+
+            var sum = 0
+            let concurrentQueue = DispatchQueue(label: "combine", attributes: .concurrent)
+
+            let source = AnyPublisher<Int, Never>.create { subscriber in
+                for _ in 0 ..< iterations {
+                    _ = subscriber.receive(1)
+                }
+                subscriber.receive(completion: .finished)
+            }
+            .receive(on: concurrentQueue)
+
+            var last = source.combineLatest(source, source) { x, _, _ in x }.eraseToAnyPublisher()
+
+            for _ in 0 ..< 7 {
+                last = source.combineLatest(source, last) { x, _, _ in x }.eraseToAnyPublisher()
+            }
+
+            let s = Tally.instance.measureMs()
+            let sink = Subscribers.Sink<Int, Never>(receiveCompletion: { _ in
+                
+                let ms = s()
+
+                print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                
+                cont.resume()
+            }, receiveValue: { x in
+                sum += x
+            })
+
+            last.subscribe(sink)
+        }
+    }
+    
+    
+    func testCombineLatestCreatingCombineSerialDispatchQ() async {
+        await withCheckedContinuation { cont in
+
+            var sum = 0
+            let concurrentQueue = DispatchQueue(label: "combine")
+
+            let source = AnyPublisher<Int, Never>.create { subscriber in
+                for _ in 0 ..< iterations {
+                    _ = subscriber.receive(1)
+                }
+                subscriber.receive(completion: .finished)
+            }
+            .receive(on: concurrentQueue)
+
+            var last = source.combineLatest(source, source) { x, _, _ in x }.eraseToAnyPublisher()
+
+            for _ in 0 ..< 7 {
+                last = source.combineLatest(source, last) { x, _, _ in x }.eraseToAnyPublisher()
+            }
+
+            let s = Tally.instance.measureMs()
+            let sink = Subscribers.Sink<Int, Never>(receiveCompletion: { _ in
+                
+                let ms = s()
+
+                print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                
+                cont.resume()
+            }, receiveValue: { x in
+                sum += x
+            })
+
+            last.subscribe(sink)
+        }
+    }
 }
 
 func assertEqual(_ args: Any...) {}

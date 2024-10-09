@@ -1,25 +1,3 @@
-// import Foundation
-
-//
-// RxSwiftTests().testMapFilterPumping()
-// RxSwiftUnfairTests().testMapFilterPumping()
-// CombineTests().testMapFilterPumping()
-// await RxSwiftAwaitTests().testMapFilterPumping()
-// await SwiftAsyncAlgoTests().testMapFilterPumping()
-
-// await testStateHolderActor()
-// testStateHolderLocked()
-
-// @main
-// struct MyApp {
-//
-//    static func main() {
-//        print("Starting the app")
-//
-//    }
-//
-// }
-
 import Dispatch
 
 struct A {
@@ -155,15 +133,22 @@ struct A {
         await tests.testCombineLatestCreatingConcurrent()
     }
 
+    func extraTests() async {
+        await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentDispatchQ()
+        await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentTask()
+        await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialDispatchQ()
+        await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialTask()
+        await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitConcurrent()
+        await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitSerial()
+        await RxSwiftTests().testCombineLatestCreatingRxSwiftVanillaConcurrent()
+        await RxSwiftTests().testCombineLatestCreatingRxSwiftVanillaSerial()
+        await CombineTests().testCombineLatestCreatingCombineConcurrentDispatchQ()
+        await CombineTests().testCombineLatestCreatingCombineSerialDispatchQ()
+    }
 }
 
-await A().testsCombineLatestConcurrent()
-
-await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentDispatchQ()
-await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentTask()
-await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialDispatchQ()
-await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialTask()
-await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitSerial()
-await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitConcurrent()
+// await A().tests()
+// await A().testsCombineLatestConcurrent()
+await A().extraTests()
 
 print("All work is done, now exiting")

@@ -21,10 +21,6 @@
 		A47B9A252C8F6F0700F5EAD4 /* RxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A222C8F6F0700F5EAD4 /* RxSwiftTests.swift */; };
 		A47B9A262C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A212C8F6F0700F5EAD4 /* RxSwiftAsyncTests.swift */; };
 		A47B9A282C8F703800F5EAD4 /* Publisher+Anonymous.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B9A272C8F703800F5EAD4 /* Publisher+Anonymous.swift */; };
-		A47B9A2B2C8F71AA00F5EAD4 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */; };
-		A47B9A2C2C8F71AA00F5EAD4 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A292C8F71AA00F5EAD4 /* RxSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A47B9A2D2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */; };
-		A47B9A2E2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A47B9A2A2C8F71AA00F5EAD4 /* RxSwiftAwait.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4F9F8ED2C45777400E3DABA /* RxSwiftAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9F8EC2C45777400E3DABA /* RxSwiftAsyncTests.swift */; };
 		B919F6FA2FD596D7C43C33D1 /* Pods_SpeedTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B8730AB70E2662A0E106CC /* Pods_SpeedTestTests.framework */; };
 		F64D61F622F4334A00315E19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64D61F522F4334A00315E19 /* AppDelegate.swift */; };
@@ -58,18 +54,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		A47B9A2F2C8F71AA00F5EAD4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A47B9A2C2C8F71AA00F5EAD4 /* RxSwift.framework in Embed Frameworks */,
-				A47B9A2E2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -118,9 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A47B9A2B2C8F71AA00F5EAD4 /* RxSwift.framework in Frameworks */,
 				609C8569E00C340818F4CF52 /* Pods_SpeedTestCmd.framework in Frameworks */,
-				A47B9A2D2C8F71AA00F5EAD4 /* RxSwiftAwait.framework in Frameworks */,
 				A45822792CA8922400A2A20F /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +228,6 @@
 				A47B9A122C8F6DD600F5EAD4 /* Sources */,
 				A47B9A132C8F6DD600F5EAD4 /* Frameworks */,
 				A47B9A142C8F6DD600F5EAD4 /* CopyFiles */,
-				A47B9A2F2C8F71AA00F5EAD4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

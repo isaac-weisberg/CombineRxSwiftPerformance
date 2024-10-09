@@ -11,6 +11,21 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 ## Test Results Summary
 
+UPDATE 2: extra tests with concurrently used 
+
+**Test** | **Value (ms)** 
+--- | ---
+RxSwift, Concurrent Queue | 
+RxSwift, Serial Queue | 
+Combine, Concurrent Queue | 
+Combine, Serial Queue | 
+RxSwiftAwait, Concurrent Task Scheduler |
+RxSwiftAwait, Serialized non-recursive Task Scheduler |
+RxSwiftUnfair, Concurrent Queue |
+RxSwiftUnfair, Serial Queue | 
+RxSwiftUnfair, Concurrent Task Scheduler |
+RxSwiftUnfair, Serialized non-recursive Task Scheduler | 
+
 UPDATE: with Swfit async algo!
 
 **Test** | **RxSwift (ms)** | **RxSwiftUnfair (ms)** | **Combine (ms)** |  **RxSwiftAwait (ms)** | **swift-async-algorithms (ms)**

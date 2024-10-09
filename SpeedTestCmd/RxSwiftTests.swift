@@ -336,4 +336,88 @@ class RxSwiftTests {
                 })
         }
     }
+
+    func testCombineLatestCreatingRxSwiftVanillaConcurrent() async {
+        await withCheckedContinuation { cont in
+
+            var sum = 0
+            let scheduler = ConcurrentDispatchQueueScheduler(qos: .userInteractive)
+
+            let source = Observable<Int>.create { observer in
+                for _ in 0 ..< iterations {
+                    observer.on(.next(1))
+                }
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            .observeOn(scheduler)
+
+            var last = Observable.combineLatest(
+                source, source, source
+            ) { x, _, _ in x }
+
+            for _ in 0 ..< 7 {
+                last = Observable
+                    .combineLatest(last, source, source) { x, _, _ in
+                        x
+                    }
+            }
+
+            let s = Tally.instance.measureMs()
+            _ = last
+                .subscribe(onNext: { x in
+                    sum += x
+                }, onCompleted: {
+
+                    let ms = s()
+
+                    print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                    cont.resume()
+                })
+        }
+
+    }
+
+    func testCombineLatestCreatingRxSwiftVanillaSerial() async {
+
+        await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
+
+            var sum = 0
+            let scheduler = SerialDispatchQueueScheduler(qos: .userInteractive)
+
+            let source = Observable<Int>.create { observer in
+                for _ in 0 ..< iterations {
+                    observer.on(.next(1))
+                }
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            .observeOn(scheduler)
+
+            var last = Observable.combineLatest(
+                source, source, source
+            ) { x, _, _ in x }
+
+            for _ in 0 ..< 7 {
+                last = Observable
+                    .combineLatest(last, source, source) { x, _, _ in
+                        x
+                    }
+            }
+
+            let s = Tally.instance.measureMs()
+            _ = last
+                .subscribe(onNext: { x in
+                    sum += x
+                }, onCompleted: {
+
+                    let ms = s()
+
+                    print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                    cont.resume()
+                })
+
+        }
+
+    }
 }
