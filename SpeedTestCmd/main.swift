@@ -157,15 +157,9 @@ struct A {
 
 }
 
-// let group = DispatchGroup()
-// group.enter()
-// Task {
-//
-//
-// }
-// await A().tests()
-
 await A().testsCombineLatestConcurrent()
 
-// group.wait()
+await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentDispatchQ()
+await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentTask()
+
 print("All work is done, now exiting")

@@ -322,7 +322,7 @@ class RxSwiftAwaitTests: @unchecked Sendable {
                             x
                         }
                 }
-                
+
                 let s = measureN()
                 _ = await last
                     .subscribe(onNext: { x in
@@ -396,6 +396,21 @@ final class Tally: @unchecked Sendable {
             let ms = Int(diff * 1000)
 
             writeResults(source, label, ms)
+        }
+    }
+
+    func measureMs(_ label: String = #function) -> @Sendable () -> Int {
+        print("run", label)
+        let start = Date()
+
+        return {
+            let end = Date()
+
+            let diff = end.timeIntervalSinceReferenceDate - start.timeIntervalSinceReferenceDate
+
+            let ms = Int(diff * 1000)
+
+            return ms
         }
     }
 

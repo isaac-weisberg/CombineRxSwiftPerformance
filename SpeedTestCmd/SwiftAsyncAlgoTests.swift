@@ -299,41 +299,7 @@ class SwiftAsyncAlgoTests {
     }
 
     func testCombineLatestCreatingConcurrent() async {
-
-        let queue = DispatchQueue(label: "conc", attributes: .concurrent)
-        let source = AsyncStream<Int> { continuation in
-            for i in 0 ..< iterations {
-                Task {
-                    //                queue.async {
-                    continuation.yield(1)
-                    //                }
-
-                }
-            }
-        }
-
-        let last = combineLatest(
-            source, source, source
-        )
-
-        let iter1 = combineLatest(last, source, source)
-        let iter2 = combineLatest(iter1, source, source)
-        let iter3 = combineLatest(iter2, source, source)
-        let iter4 = combineLatest(iter3, source, source)
-        let iter5 = combineLatest(iter4, source, source)
-        let iter6 = combineLatest(iter5, source, source)
-
         let s = measureN()
-
-        let edge = 9749//iterations - 128
-        var sum = 0
-        for await i in iter6 {
-            sum += 1
-            print("ASDF", sum)
-            if sum == edge {
-                break
-            }
-        }
 
         s()
     }
