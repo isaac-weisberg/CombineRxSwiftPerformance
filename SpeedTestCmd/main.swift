@@ -161,5 +161,9 @@ await A().testsCombineLatestConcurrent()
 
 await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentDispatchQ()
 await RxSwiftUnfairTests().testCombineLatestCreatingUnfairConcurrentTask()
+await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialDispatchQ()
+await RxSwiftUnfairTests().testCombineLatestCreatingUnfairSerialTask()
+await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitSerial()
+await RxSwiftAwaitTests().testCombineLatestCreatingRxSwiftAwaitConcurrent()
 
 print("All work is done, now exiting")

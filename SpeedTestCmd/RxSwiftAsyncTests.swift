@@ -335,6 +335,90 @@ class RxSwiftAwaitTests: @unchecked Sendable {
             }
         }
     }
+
+    func testCombineLatestCreatingRxSwiftAwaitConcurrent() async {
+        await withCheckedContinuation { cont in
+            Task {
+                var sum = 0
+                let scheduler = ConcurrentAsyncScheduler.instance
+
+                let source = Observable<Int>.create { observer in
+                    for _ in 0 ..< iterations {
+                        await observer.on(.next(1))
+                    }
+                    await observer.onCompleted()
+                    return Disposables.create()
+                }
+                .observe(on: scheduler)
+
+                var last = Observable.combineLatest(
+                    source, source, source
+                ) { x, _, _ in x }
+
+                for _ in 0 ..< 7 {
+                    last = Observable
+                        .combineLatest(last, source, source) { x, _, _ in
+                            x
+                        }
+                }
+
+                let s = Tally.instance.measureMs()
+                _ = await last
+                    .subscribe(onNext: { x in
+                        sum += x
+                    }, onCompleted: {
+
+                        let ms = s()
+
+                        print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                        cont.resume()
+                    })
+            }
+        }
+
+    }
+
+    func testCombineLatestCreatingRxSwiftAwaitSerial() async {
+        await withCheckedContinuation { cont in
+            Task {
+                var sum = 0
+                let scheduler = SerialNonrecursiveScheduler(lock: ActualNonRecursiveLock())
+
+                let source = Observable<Int>.create { observer in
+                    for _ in 0 ..< iterations {
+                        await observer.on(.next(1))
+                    }
+                    await observer.onCompleted()
+                    return Disposables.create()
+                }
+                .observe(on: scheduler)
+
+                var last = Observable.combineLatest(
+                    source, source, source
+                ) { x, _, _ in x }
+
+                for _ in 0 ..< 7 {
+                    last = Observable
+                        .combineLatest(last, source, source) { x, _, _ in
+                            x
+                        }
+                }
+
+                let s = Tally.instance.measureMs()
+                _ = await last
+                    .subscribe(onNext: { x in
+                        sum += x
+                    }, onCompleted: {
+
+                        let ms = s()
+
+                        print("ASDF EXTRA TEST \(#function) \(ms) ms")
+                        cont.resume()
+                    })
+            }
+        }
+
+    }
 }
 
 enum Source {
