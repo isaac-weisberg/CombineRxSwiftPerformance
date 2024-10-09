@@ -13,18 +13,33 @@ As a summary Combine was faster in every test and on average 41% more performant
 
 UPDATE 2: extra tests with concurrently used 
 
+I have concluded my research on async-await performance in swift
+Given:
+- anObservable source that emits 10000 elements
+- each emission gets independendly rescheduled via observe(on:)
+- this source is combined with 2 more source into a combine latest
+- the result is combined with 2 more source into a combine latest
+- previous step 6 more times
+
+Subscribing and waiting for all subscriptions to exhaust has produced the following results with different reimplementations of classic RxSwift:
+
 **Test** | **Value (ms)** 
 --- | ---
-RxSwift, Concurrent Queue | 
-RxSwift, Serial Queue | 
-Combine, Concurrent Queue | 
-Combine, Serial Queue | 
-RxSwiftAwait, Concurrent Task Scheduler |
-RxSwiftAwait, Serialized non-recursive Task Scheduler |
-RxSwiftUnfair, Concurrent Queue |
-RxSwiftUnfair, Serial Queue | 
-RxSwiftUnfair, Concurrent Task Scheduler |
-RxSwiftUnfair, Serialized non-recursive Task Scheduler | 
+RxSwift (NSRecursiveLock), Concurrent Queue | 579 
+RxSwift (NSRecursiveLock), Serial Queue | 114
+Combine, Concurrent Queue | 133 
+Combine, Serial Queue | 55
+RxSwiftAwait (Actors as locks), Concurrent Task Scheduler | 13044
+RxSwiftAwait (Actors as locks), Serialized non-recursive Task Scheduler | 110676
+RxSwiftUnfair (os_unfair_lock), Concurrent Queue | 300
+RxSwiftUnfair (os_unfair_lock), Serial Queue | 136
+RxSwiftUnfair (os_unfair_lock), Concurrent Task Scheduler | 269
+RxSwiftUnfair (os_unfair_lock), Serialized non-recursive Task Scheduler | 753
+
+Conclusion:
+- Combine wins
+- structured concurrency is a perf improvement for Rx only in concurrent, massively parallel scenarios
+- we need to write a compile-time-only RxSwift frontend for Combine
 
 UPDATE: with Swfit async algo!
 
